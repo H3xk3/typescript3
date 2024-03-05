@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .blue {
+            background-color: #00F;
+        }
+    </style>
+    
+</head>
+<body>
+    <div>
+    Klik op deze div om de achtergrond blauw te maken en daarna de div te laten wegfaden.
+    </div>
+
+    <script>
+        $(document).ready(function() {
+                let $divOpvraging = $('div');
+                    $divOpvraging.click(function() {
+                    $divOpvraging.addClass('blue');
+                    $divOpvraging.fadeOut('slow');
+                }); 
+        });
+    </script>
+</body>
+</html>

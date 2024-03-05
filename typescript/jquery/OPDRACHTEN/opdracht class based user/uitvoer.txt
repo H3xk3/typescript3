@@ -1,0 +1,28 @@
+Log user info:
+Name: John Doe
+Email: john.doe@example.com
+----------
+Log user info:
+Name: Jane Smith
+Email: jane.smith@example.com
+----------
+getFullName
+John Doe
+----------
+Resetting Password
+Password has been reset.
+----------
+Setting Password with invalid format
+Wachtwoord voldoet niet aan de vereisten.
+----------
+Setting Password with valid format
+Wachtwoord succesvol ingesteld.
+----------
+Log user info:
+Name: John Doe
+Email: john.doe@example.com
+----------
+Log user info:
+Name: Jane Smith
+Email: jane.smith@example.com
+----------

@@ -1,0 +1,231 @@
+Opdracht: Muziekalbum beheer 
+Bouw een modulair systeem om muziekalbums en hun tracks te beheren. De applicatie moet in staat zijn om albums toe te voegen, op te vragen, en via een generator door de tracks van een bepaald album te kunnen bladeren.
+Track Module (track.ts):
+Definieer een Track interface met de velden: id: Symbol, name: string, en length: string (duur van het nummer in de vorm 'mm:ss').
+Album Module (album.ts):
+Definieer een Album interface met de velden: id: Symbol, name: string, artist: string, en tracks: Track[].
+AlbumManager Module (albumManager.ts):
+Importeer zowel de Track als Album interfaces.
+Creëer een AlbumManager klasse met de volgende functionaliteiten:
+Een private set albums om albums in op te slaan.
+Een methode addAlbum om albums toe te voegen.
+Een methode getAlbum om een album op te vragen op basis van een Symbol.
+Een generator methode trackGenerator die, gegeven een album id, de tracks van dat album één voor één retourneert.
+Exporteer de AlbumManager klasse.
+Main Module (main.ts):
+Creëer enkele voorbeeldtracks en voeg deze toe aan een album.
+Voeg dit album toe aan de AlbumManager.
+Gebruik de generator functie om door de tracks van het album te bladeren en ze te loggen, bv.
+{ id: Symbol(), name: 'Song A', length: '04:30' }
+{ id: Symbol(), name: 'Song B', length: '03:45' }
+Hint: Gebruik Symbol() om unieke ID's te genereren voor tracks en albums. dit is nog een opdracht die ik moet maken
+ChatGPT
+Hier is hoe je het modulaire systeem kunt opzetten om muziekalbums en tracks te beheren, zoals beschreven in de opdracht:
+
+track.ts
+typescript
+Copy code
+export interface Track {
+    id: Symbol;
+    name: string;
+    length: string; // duur van het nummer in de vorm 'mm:ss'
+}
+album.ts
+typescript
+Copy code
+import { Track } from './track';
+
+export interface Album {
+    id: Symbol;
+    name: string;
+    artist: string;
+    tracks: Track[];
+}
+albumManager.ts
+typescript
+Copy code
+import { Track } from './track';
+import { Album } from './album';
+
+export class AlbumManager {
+    private albums: Album[] = [];
+
+    addAlbum(album: Album): void {
+        this.albums.push(album);
+    }
+
+    getAlbum(albumId: Symbol): Album | undefined {
+        return this.albums.find(album => album.id === albumId);
+    }
+
+    *trackGenerator(albumId: Symbol): Generator<Track, void, unknown> {
+        const album = this.getAlbum(albumId);
+        if (!album) {
+            throw new Error('Album not found');
+        }
+        for (let i = 0; i < album.tracks.length; i++) {
+            yield album.tracks[i];
+        }
+    }
+}
+main.ts
+typescript
+Copy code
+import { AlbumManager } from './albumManager';
+
+// Importeer interfaces en klassen
+import { Track } from './track';
+import { Album } from './album';
+
+// Voorbeeld tracks
+const tracks: Track[] = [
+    { id: Symbol(), name: 'Song A', length: '04:30' },
+    { id: Symbol(), name: 'Song B', length: '03:45' },
+    { id: Symbol(), name: 'Song C', length: '05:15' },
+];
+
+// Voorbeeld album
+const album: Album = {
+    id: Symbol(),
+    name: 'My Album',
+    artist: 'Artist Name',
+    tracks: tracks,
+};
+
+// Maak een AlbumManager en voeg het album toe
+const albumManager = new AlbumManager();
+albumManager.addAlbum(album);
+
+// Gebruik de generator functie om door de tracks van het album te bladeren en te loggen
+const albumId = album.id;
+const generator = albumManager.trackGenerator(albumId);
+console.log('Tracks of Album:', album.name);
+for (const track of generator) {
+    console.log(track);
+}
+Dit voorbeeld bestaat uit drie TypeScript-bestanden: track.ts, album.ts, en albumManager.ts, samen met main.ts om alles samen te brengen en te testen.
+
+track.ts definieert de Track interface met de vereiste velden.
+album.ts definieert de Album interface met velden inclusief een array van Track.
+albumManager.ts bevat de AlbumManager klasse met methoden om albums toe te voegen, op te vragen en een generatorfunctie om door tracks te bladeren.
+In main.ts worden voorbeeldtracks en een album gemaakt, toegevoegd aan de AlbumManager, en vervolgens wordt de generatorfunctie gebruikt om door de tracks van het album te bladeren en ze te loggen.
+Om dit voorbeeld uit te voeren, moet je ervoor zorgen dat je een TypeScript-compiler hebt geïnstalleerd en de bestanden compileert naar JavaScript (of je kunt een online TypeScript-compiler gebruiken). Het gebruik van Symbol() voor unieke ID's zorgt ervoor dat elk track- en albumobject een unieke identifier heeft. Het toevoegen van albums, het opvragen van specifieke albums en het doorlopen van tracks met behulp van de generatorfunctie is allemaal gedemonstreerd in het main.ts-bestand.
+
+User
+al deze bestanden moet in 1 map staan?
+ChatGPT
+Ja, alle TypeScript-bestanden (track.ts, album.ts, albumManager.ts, en main.ts) moeten in dezelfde map staan om correct te werken. Wanneer je TypeScript-bestanden importeert/exporteert, zoekt TypeScript naar de relatieve paden van de geïmporteerde bestanden vanaf de locatie van het huidige bestand.
+
+Dus als je de bestanden in één map plaatst, kun je de importpaden zoals import { Track } from './track'; en import { AlbumManager } from './albumManager'; gebruiken zoals getoond in het main.ts-bestand.
+
+Je mapstructuur zou er ongeveer zo uit moeten zien:
+
+css
+Copy code
+muziekalbum-beheer/
+│
+├── albumManager.ts
+├── album.ts
+├── main.ts
+└── track.ts
+Wanneer je deze bestanden compileert met TypeScript, kun je een enkel JavaScript-bestand krijgen dat alle logica bevat als je de --outFile-optie gebruikt. Bijvoorbeeld:
+
+css
+Copy code
+tsc --outFile bundle.js main.ts
+Dit compileert alle TypeScript-bestanden en bundelt ze in één JavaScript-bestand genaamd bundle.js. Deze bundel kan dan worden uitgevoerd om je applicatie uit te voeren. Maar voor ontwikkelingsdoeleinden is het meestal handig om de afzonderlijke JavaScript-bestanden te behouden. Je kunt ze in een HTML-bestand importeren met <script>-tags in de juiste volgorde:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muziekalbum Beheer</title>
+    <script src="album.js" type="module"></script>
+    <script src="albumManager.js" type="module"></script>
+    <script src="track.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+</head>
+<body>
+    <!-- Inhoud van je applicatie -->
+</body>
+</html>
+In dit voorbeeld worden de JavaScript-bestanden (album.js, albumManager.js, track.js, main.js) in de HTML geïmporteerd als modules. Hierdoor worden ze in de juiste volgorde uitgevoerd en kunnen ze correct importeren en exporteren vanuit elkaar. Dit is handig voor ontwikkeling en onderhoud van de code.
+
+User
+<body>
+    <!-- Inhoud van je applicatie -->
+</body> geef mij specifieke code die hierin zou moeten komen zodat het werkt met alle .ts bestanden
+ChatGPT
+Om de volledige applicatie in een HTML-bestand te integreren, moeten we JavaScript-modules importeren die zijn gegenereerd door de TypeScript-bestanden. Hier is een voorbeeld van hoe je de HTML kunt structureren:
+
+index.html
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muziekalbum Beheer</title>
+</head>
+<body>
+    <h1>Muziekalbum Beheer</h1>
+    <div id="output"></div>
+
+    <!-- JavaScript modules -->
+    <script type="module">
+        import { Track } from './track.js';
+        import { Album } from './album.js';
+        import { AlbumManager } from './albumManager.js';
+
+        // Voorbeeld tracks
+        const tracks = [
+            { id: Symbol(), name: 'Song A', length: '04:30' },
+            { id: Symbol(), name: 'Song B', length: '03:45' },
+            { id: Symbol(), name: 'Song C', length: '05:15' },
+        ];
+
+        // Voorbeeld album
+        const album = {
+            id: Symbol(),
+            name: 'My Album',
+            artist: 'Artist Name',
+            tracks: tracks,
+        };
+
+        // Maak een AlbumManager en voeg het album toe
+        const albumManager = new AlbumManager();
+        albumManager.addAlbum(album);
+
+        // Gebruik de generator functie om door de tracks van het album te bladeren en te loggen
+        const albumId = album.id;
+        const generator = albumManager.trackGenerator(albumId);
+
+        let output = document.getElementById('output');
+        for (const track of generator) {
+            let trackElement = document.createElement('div');
+            trackElement.textContent = `Track: ${track.name} - Length: ${track.length}`;
+            output.appendChild(trackElement);
+        }
+    </script>
+</body>
+</html>
+In dit HTML-bestand:
+
+We hebben een <div id="output"></div> toegevoegd waar de tracks van het album worden weergegeven.
+In de <script type="module">-tag importeren we de gegenereerde JavaScript-modules vanuit de .js-bestanden die door TypeScript zijn gegenereerd.
+We maken voorbeeldtracks en een voorbeeldalbum aan.
+Een AlbumManager wordt gemaakt en het album wordt toegevoegd.
+We gebruiken de generatorfunctie om door de tracks van het album te bladeren en deze worden toegevoegd aan de output-div.
+Zorg ervoor dat je alle TypeScript-bestanden (track.ts, album.ts, albumManager.ts) compileert naar JavaScript-bestanden (track.js, album.js, albumManager.js) voordat je deze HTML opent in een browser. Je kunt de TypeScript-bestanden compileren met de tsc-commando in de terminal:
+
+bash
+Copy code
+tsc track.ts album.ts albumManager.ts
+Dit zal de .js-bestanden genereren die je dan in de HTML kunt gebruiken zoals hierboven getoond. Als alles correct is ingesteld, zou het bovenstaande HTML-bestand de tracks van het voorbeeldalbum moeten weergeven wanneer je het opent in een browser.
+
+
+
+
+

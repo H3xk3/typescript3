@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu with jQuery</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+    <style>
+        ul#menu li {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        ul#menu li a {
+            position: relative;
+            bottom: -125px;
+            transition: bottom 0.3s ease;
+        }
+
+        ul#menu li i {
+            position: relative;
+            top: 125px; 
+            transition: top 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul id="menu">
+            <li>
+                <a href="#">
+                    <i class="icon_about"></i>
+                    <span class="title">About</span>
+                    <span class="description">Learn about us and our services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="icon_work"></i>
+                    <span class="title">Work</span>
+                    <span class="description">See our work and portfolio</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="icon_help"></i>
+                    <span class="title">Help</span>
+                    <span class="description">Talk to our support</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="icon_search"></i>
+                    <span class="title">Search</span>
+                    <span class="description">Search our website</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function animeer(selectie, properties, speed) {
+                selectie.animate(properties, speed);
+            }
+
+            $("ul#menu li").hover(
+                function() {
+                    animeer($(this).find("a"), { "bottom": "-30px" }, 150);
+                    animeer($(this).find("i"), { "top": "50px" }, 150);
+                },
+                function() {
+                    animeer($(this).find("a"), { "bottom": "-125px" }, 150);
+                    animeer($(this).find("i"), { "top": "125px" }, 150);
+                }
+            );
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <style>
+    body {
+        font-family: arial;
+    }
+    #content {
+    	display: none;
+    }
+
+    </style>
+</head>
+
+<body>
+    <h1>Hello jQuery.</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida
+        rhoncus commodo. Aenean sit amet augue iaculis sem consectetur accumsan vitae a
+        arcu. Quisque quam diam, sollicitudin vel porta eget, vestibulum id justo. Vestibu-
+        lum mattis metus sed lorem adipiscing facilisis. Vestibulum sed ipsum ut nibh
+        rutrum ultricies. </p>
+    <a href="#" id="link">Show/Hide</a>
+    <div id="content">
+        <p>Donec diam nisi, auctor sed tristique eget, pellentesque nec nisi. Sed vel
+            libero ipsum. Quisque semper, lectus in pulvinar tristique, nibh urna scelerisque
+            augue, at varius justo metus in orci. Suspendisse pretium arcu nec enim lacinia id
+            cursus diam rhoncus. Praesent pulvinar volutpat luctus. Vivamus cursus adipiscing
+            tellus, id fermentum turpis egestas lacinia. Aliquam tristique porttitor quam at
+            pretium. In ornare aliquet iaculis. Phasellus sit amet leo id urna tincidunt
+            fringilla. Nullam ut fringilla magna. Class aptent taciti sociosqu ad litora
+            torquent per conubia nostra, per inceptos himenaeos. Nunc leo arcu, sagittis eget
+            volutpat at, bibendum at elit. Vestibulum a nisi nec felis malesuada fringilla.
+            Quisque vitae mauris nec sapien porta pharetra eu vitae sapien. Cras bibendum
+            eleifend malesuada.</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('a#link').click(function () {
+            $('#content').toggle();
+            });
+            
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+event -> event handler
+gebeurtenis -> gebeurtenis afhandelen
+
+event treedt op, heeft plaats, vuurt af, ...
+Engels : event is triggered, fired, ...
+
+gebeuren op : document en window, muis, formulier, keyboard, ...
+vbn. van events : click, focus, blur, change, ...
+
+$('element').event-dat-je-wil-opsporen();
+
+voor event vervolgens function definiëren
+tussen haakjes van event :
+
+$('element').event-dat-je-wil-opsporen(
+	function(){
+		opdrachten gebeuren als event optreed;
+}
+);
+<p>Als je op deze paragraaf klikt zal een log te voorschijn komen in de console.</p>
+
+$('p').click(function() {
+   console.log('click op een paragraaf');
+});
+meest voorkomende events die gebruiker doet
+
+Bv. click(), on(), mousedown(), dblclick(),...
+<button>Click of hover</button>
+$("button").click(function() {
+	console.log("clicked");
+});
+$("button").hover(function() {
+//executed when mouse enters and leaves the element
+   	console.log("hover");
+});
+In vorig voorbeeld worden er 2 events gedefinieerd op de selectie van alle knoppen. 
+We zouden de opvraging van de knoppen in een variabele kunnen steken. 
+Maar een eenvoudigere oplossing is gebruik maken van chaining: we hangen verschillende events aan 1 selectie.
+Opgelet: zorg dat er geen ; aan het einde van de eerste event handler functie staat
+Vanaf versie 1.7 : .on() 
+om event handlers te definiëren
+voorkeur boven .bind(), .delegate() en .live() 
+
+.click() is verkorte schrijfwijze 
+valt terug op .on()
+.on() fractie sneller dan .click()
+
+.on() heeft meer mogelijkheden
+Vgl. werkelijke wereld:
+
+Afspraak met de tandarts:
+aantal gegevens aan verbonden
+		tijdstip
+adres tandarts
+...
+event handler functie ontvangt automatisch een parameter : het event object
+
+bevat allerlei info over het event
+Bv. bij click bevat het event object : 
+x en y positie t.o.v. het venster
+referentie naar object waarop je geklikt hebt
+type van event (click in dit geval)
+load : alle elementen + subelementen volledig ingelezen
+
+unload : weg van huidige pagina
+bv. via link, andere url, back en forward of refresh
+
+ready : al elementen van DOM zijn klaar 
+DOM is dus opgebouwd, maar daarom zijn nog niet alle elementen volledig ingelezen, bv. afbeelding kan al wel opgenomen zijn in DOM, maar nog niet volledig opgebouwd op scherm

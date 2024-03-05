@@ -1,0 +1,491 @@
+Basisconcepten van TypeScript
+
+Variabelen en Datatypes
+
+Variabelen
+declareren met behulp van let of const 
+let naam: string = "John";
+const leeftijd: number = 30;
+
+datatypes zijn gespecificeerd met behulp van :
+
+geeft aan welk soort waarde elke variabele kan bevatten
+
+Wanneer te gebruiken
+const: standaard wanneer je een variabele declareert
+maakt je code voorspelbaarder, garandeert dat waarde van variabele niet opnieuw wordt toegewezen
+
+
+let: alleen als variabele in toekomst opnieuw moet worden toegewezen, zoals tellers in lussen, variabelen die waarden opslaan die kunnen veranderen als gevolg van gebruikersinteractie, enz.
+
+
+
+Datatypes - number
+Voor numerieke waarden zoals gehele getallen of zwevende-kommagetallen
+
+string
+Voor tekstuele gegevens, zoals teksten en karakters, elk teken op je toetsenbord en meer
+
+
+
+boolean
+Voor logische waarden, true of false
+const member: boolean = true;
+
+
+array
+Voor het opslaan van lijsten met waarden van hetzelfde type 
+Ook voor combinatie van typen mogelijk
+
+const getallen: number[] = [1, 2, 3];
+const namen: string[] = ["Anna", "Bob", "Charlie"];
+
+
+
+
+
+object
+opslaan van complexe datatypes, b.v. objecten met eigenschappen en methoden
+
+any
+speciaal datatype dat vertelt om geen type controle uit te voeren
+wordt meestal gebruikt wanneer je exacte datatype van variabele niet kent of niet wilt specificeren, vermijd indien mogelijk(!)
+
+let data: any;
+data = 42;           // toegestaan
+data = "Hello";      // toegestaan
+data = [1, 2, 3];    // toegestaan
+data.myMethod();     // Geen typefout, ook al bestaat deze methode mogelijk niet.
+
+unknown
+geïntroduceerd in TypeScript 3.0 als een veiliger alternatief voor any
+
+vertegenwoordigt type van waarde die je nog niet kent, net als any, maar is restrictiever
+
+
+
+
+
+
+let dataUnknown: unknown;
+dataUnknown = 42;           // toegestaan
+dataUnknown = "Hello";      // toegestaan
+dataUnknown = [1, 2, 3];    // toegestaan
+// dataUnknown.myMethod(); // Typefout! TypeScript staat dit niet toe zonder een typecheck.if (typeof data === "string") {
+console.log(data.toUpperCase()); // Nu toegestaan, want we hebben gecontroleerd dat data een string is.
+}
+
+tuple
+array-achtige structuur waarvan lengte en types van elementen vooraf zijn bepaald
+let point: [number, number];
+
+point = [10, 20];   // toegestaan
+// point = [10, 20, 30]; // Fout, te veel elementen
+// point = ["10", 20];   // Fout, verkeerd type voor het eerste element
+
+let complexTuple: [number, string, boolean] = [1, "one", true];
+
+
+enum
+enumeraties
+om naamgeving te geven aan sets van numerieke of string waarden
+om gemakkelijk leesbare namen te associëren met specifieke waarden
+bv. dagen van de week, gebruikersrollen, kleuren, enz.
+
+
+
+
+enum Days {
+   Monday,
+   Tuesday,
+   Wednesday,
+   Thursday,
+   Friday,
+   Saturday,
+   Sunday
+}
+
+const today: Days = Days.Friday;
+console.log(today);  // Outputs: 4 (omdat Friday het vijfde item is, beginnend vanaf 0)
+
+enum Colors {
+   Red = "#FF0000",
+   Green = "#00FF00",
+   Blue = "#0000FF"
+}
+
+const favoriteColor: Colors = Colors.Green;
+console.log(favoriteColor);  // Outputs: "#00FF00"
+
+run build
+.ts bestand gecompileerd naar een .js bestand
+"use strict";
+const naam = "John";
+const leeftijd = 30;
+const member = true;
+const getallen = [1, 2, 3];
+const namen = ["Anna", "Bob", "Charlie"];
+let data;
+data = 42; // toegestaan
+data = "Hello"; // toegestaan
+
+data = [1, 2, 3]; // toegestaan
+data.myMethod(); // Geen typefout, ook al bestaat deze methode mogelijk niet.
+let dataUnknown;
+dataUnknown = 42; // toegestaan
+dataUnknown = "Hello"; // toegestaan
+dataUnknown = [1, 2, 3]; // toegestaan
+// dataUnknown.myMethod(); // Typefout! TypeScript staat dit niet toe zonder een typecheck.
+if (typeof data === "string") {
+   console.log(data.toUpperCase()); // Nu toegestaan, want we hebben gecontroleerd dat data een string is.
+}
+
+let point;
+point = [10, 20]; // toegestaan
+// point = [10, 20, 30]; // Fout, te veel elementen
+// point = ["10", 20];   // Fout, verkeerd type voor het eerste element
+let complexTuple = [1, "one", true];
+
+
+var Days;
+(function (Days) {
+   Days[Days["Monday"] = 0] = "Monday";
+   Days[Days["Tuesday"] = 1] = "Tuesday";
+   Days[Days["Wednesday"] = 2] = "Wednesday";
+   Days[Days["Thursday"] = 3] = "Thursday";
+   Days[Days["Friday"] = 4] = "Friday";
+   Days[Days["Saturday"] = 5] = "Saturday";
+   Days[Days["Sunday"] = 6] = "Sunday";
+})(Days || (Days = {}));
+const today = Days.Friday;
+console.log(today); // Outputs: 4 (omdat Friday het vijfde item is, beginnend vanaf 0)
+
+
+var Colors;
+(function (Colors) {
+   Colors["Red"] = "#FF0000";
+   Colors["Green"] = "#00FF00";
+   Colors["Blue"] = "#0000FF";
+})(Colors || (Colors = {}));
+let favoriteColor = Colors.Green;
+console.log(favoriteColor); // Outputs: "#00FF00"
+function begroet(naam) {
+   return `Hallo, ${naam}!`;
+}
+
+Oefening dataytypes
+Basic Types:
+Definieer een variabele voor een geheel getal en noem het leeftijdStudent.
+Definieer een variabele voor een tekstwaarde en noem het achternaam.
+Definieer een variabele die een waarheidswaarde (waar of onwaar) kan bevatten en noem het isStudent.
+Geef telkens een waarde.
+
+
+Oplossing
+// 1. Basic Types
+const leeftijdStudent: number = 25;
+const achternaam: string = "Jansen";
+const isStudent: boolean = true;
+console.log(`De leeftijd van ${achternaam} is ${leeftijdStudent}. Ingeschreven als student is: ${isStudent}`);
+
+
+Array:
+Definieer een array van strings die de namen van dagen in de week bevat en noem het dagenVanDeWeek. Log welke dag het vandaag is.
+Tuple:
+Definieer een tuple die een leeftijd (nummer) en een naam (string) bevat en noem het persoonInfo. Geef waardes en log deze.
+Enum:
+Definieer een enum voor de vier windrichtingen (Noord, Oost, Zuid, West) en noem het Windrichting. Maak een variabele en geef een waarde.
+Log de variabele.
+
+
+Oplossing
+// 2. Array
+const dagenVanDeWeek: string[] = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
+console.log(`Vandaag is het ${dagenVanDeWeek[0]}.`);
+
+
+// 3. Tuple
+const persoonInfo: [number, string] = [30, "Pieter"];
+console.log(`Persoon Info: Naam is ${persoonInfo[1]} en de leeftijd is ${persoonInfo[0]}.`);
+
+
+
+// 4. Enum
+enum Windrichting {
+   Noord,
+   Oost,
+   Zuid,
+   West
+}
+const huidigeRichting: Windrichting = Windrichting.Noord;
+console.log(`De wind komt uit ${huidigeRichting}.`);//0
+console.log(`De wind komt uit ${Windrichting[huidigeRichting]}.`);//Noord
+
+
+
+
+Definieer enum voor 4 seasons: Spring, Summer, Autumn, Winter.
+Maak een currentSeason variabele die Autumn bevat. Log currentSeason.
+
+enum Seasons {
+   Spring,
+   Summer,
+   Autumn,
+   Winter
+}
+const currentSeason: Seasons = Seasons.Autumn;
+console.log(currentSeason);
+
+Oplossing
+
+Maak een enum voor Planets. Deze bevat de planeten en een uitleg:
+   Mercury = "Small and close to the Sun",
+   Venus = "Similar in size to Earth, but very hot",
+   Earth = "Our home planet",
+   Mars = "The red planet",
+   Jupiter = "The largest planet",
+   Saturn = "Known for its rings",
+   Uranus = "An ice giant",
+   Neptune = "A distant blue world"
+Maak een variabele favoritePlanetInfo en stel die in op je favoriete planeet.
+
+
+enum Planets {
+   Mercury = "Small and close to the Sun",
+   Venus = "Similar in size to Earth, but very hot",
+   Earth = "Our home planet",
+   Mars = "The red planet",
+   Jupiter = "The largest planet",
+   Saturn = "Known for its rings",
+   Uranus = "An ice giant",
+   Neptune = "A distant blue world"
+}
+const favoritePlanetInfo: Planets = Planets.Mars;
+console.log(`Mijn favoriete planeet: ${favoritePlanetInfo}`);
+
+
+Any en Unknown:
+Definieer een variabele met het type any en noem het mijnData.
+Definieer een andere variabele met het type unknown en noem het externeInput.
+Geef waardes.
+Log de variabelen.
+
+// 5. Any en Unknown
+let mijnData: any = "Dit kan alles zijn!";
+mijnData = 100;  // Dit is geldig met 'any' type
+let externeInput: unknown;
+externeInput = "Wat je wil intikken."
+
+console.log(`Mijn data: ${mijnData}`);
+console.log(`Externe input: ${externeInput}`);
+
+
+
+Functies en hun Typen
+
+herbruikbare codeblokken die specifieke taak uitvoeren
+In TypeScript kun je typen van parameters en retourwaarden specificeren
+function begroet(naam: string): string {
+    return `Hallo, ${naam}!`;
+}
+functie begroet die parameter naam van het type string verwacht en waarde van het type string retourneert
+De gecompileerde versie is:
+function begroet(naam) {
+   return `Hallo, ${naam}!`;
+}
+Retourwaarde
+
+void
+om aan te geven dat een functie geen waarde retourneert.
+function logMessage(message: string): void {
+   console.log(message);
+}
+logMessage('Hi');
+
+
+function begroet2(naam: string, taal: string = "Nederlands"): string {
+   return `Hallo, ${naam}! (${taal})`;
+}
+optionele parameter taal met een standaardwaarde van "Nederlands"
+De gecompileerde versie is:
+function begroet2(naam, taal = "Nederlands") {
+   return `Hallo, ${naam}! (${taal})`; 
+}
+Optionele parameters en standaardwaarden
+
+
+Arrow Functies en 'this' gedrag
+
+arrow functies
+kortere syntax om functies te schrijven
+"arrow functies" genoemd vanwege hun => syntax
+
+traditionele functie vs. een arrow functie
+// Traditionele functiedefinitie
+function greetings(name: string) {
+   return "Hello, " + name;
+}
+
+// Arrow functiedefinitie
+const greetingsArrow = (name: string) => "Hello, " + name;
+
+this gedrag
+Een van de meest onderscheidende kenmerken van arrow functies is hoe ze omgaan met de this waarde.
+
+In traditionele functies:
+waarde van this is gebaseerd op hoe functie wordt aangeroepen, kan variëren afhankelijk van context. Als functie als methode van object wordt aangeroepen, verwijst this naar dat object.
+
+
+In arrow functies:
+waarde van this wordt vastgelegd op moment dat functie wordt gedefinieerd, niet wanneer hij wordt aangeroepen. Arrow functies hebben geen eigen this; ze erven this waarde van omliggende (niet-arrow) code.
+
+nieuw bestand in de output map
+
+const persoon = {
+   naam: "John",
+   zegHallo: function () {
+       console.log(`Hallo, mijn naam is ${this.naam}`);
+       // Binnen een gewone (niet-arrow) functie wordt een nieuwe waarde van 'this' gecreëerd:
+       function innerFunctie() {
+           console.log(`Binnen de innerFunctie, mijn naam is ${this.naam}`);
+       }
+       innerFunctie();
+       
+
+       // Binnen een arrow-functie wordt 'this' uit de omliggende scope (zegHallo in dit geval) genomen:
+       const innerArrowFunctie = () => {
+           console.log(`Binnen de innerArrowFunctie, mijn naam is ${this.naam}`);
+       }
+       innerArrowFunctie();
+   }
+}
+
+persoon.zegHallo();
+/*
+Hallo, mijn naam is John
+Binnen de innerFunctie, mijn naam is undefined
+Binnen de innerArrowFunctie, mijn naam is John
+*/
+
+In geval van vrije functie-aanroep 
+(dat wil zeggen, de functie is niet gebonden aan een object en wordt niet als constructor of als methode aangeroepen), 
+verwijst this 
+in niet-strict mode naar globale object (window in browsers)
+in strict mode verwijst this naar undefined
+
+Oefening functies
+Schrijf een fat arrow functie genaamd calculate. Deze functie moet twee nummers en een optionele operator accepteren.
+Als de operator "subtract" is, moet de functie het verschil tussen de twee nummers retourneren.
+In alle andere gevallen moet het de som van de twee nummers retourneren.
+
+
+Oplossing
+const calculate = (x: number, y: number, operator?: string) => {
+   if (operator === "subtract") {
+       return x - y;
+   }
+   return x + y;
+};
+
+console.log(calculate(5, 3));          // Outputs: 8
+console.log(calculate(5, 3, "subtract"));  // Outputs: 2
+
+
+Schrijf een arrow-functie genaamd introduce.
+Deze functie moet een naam en een optionele leeftijd als parameters accepteren. Als er geen leeftijd is opgegeven, moet deze standaard 30 zijn.
+De functie moet een string retourneren met de naam en leeftijd.
+
+
+// 2. Default Parameters en Arrow Functies
+const introduce = (name: string, age: number = 30) => `Hello, my name is ${name} and I am ${age} years old.`;
+
+console.log(introduce("Alice"));          // Outputs: Hello, my name is Alice and I am 30 years old.
+console.log(introduce("Bob", 40));        // Outputs: Hello, my name is Bob and I am 40 years old.
+
+Oplossing
+
+Maak een object met de naam user met de eigenschappen name en age.
+Voeg een methode toe aan dit object met de naam describe.
+Deze methode moet een string retourneren met de naam en leeftijd van de gebruiker.
+De uitvoer is bv.
+8
+2
+Hello, my name is Alice and I am 30 years old.
+Hello, my name is Bob and I am 40 years old.
+Hello, my name is Charlie and I am 35 years old.
+
+// 3. 'this' Gedrag
+const user = {
+   name: "Charlie",
+   age: 35,
+   describe() {
+       return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+   }
+};
+
+console.log(user.describe()); // Outputs: Hello, my name is Charlie and I am 35 years old.
+
+
+
+
+Oplossing
+
+Type-inferentie
+TypeScript probeert datatype van variabele te begrijpen op basis van waarde die aan die variabele is toegewezen
+let getal = 42; // TypeScript begrijpt dat getal number is
+datatype niet expliciet gespecificeerd
+TypeScript analyseert echter waarde 42 en begrijpt dat het nummer is, dus het type van getal wordt automatisch ingesteld op number
+Dit maakt TypeScript flexibel en helpt om code beknopt te houden zonder  noodzaak van overmatige datatype-specificaties
+Best practice: definieer het type!
+
+Debuggen met TypeScript
+
+Als je TypeScript-code schrijft en deze transpileert naar JavaScript, wil je mogelijk fouten debuggen in je oorspronkelijke TypeScript-code in plaats van gegenereerde JavaScript. 
+-> Source Maps
+
+Hoe .js debuggen?
+
+Source maps
+bestanden die relatie beschrijven tussen oorspronkelijke TypeScript-code en  gegenereerde JavaScript-code
+Met source maps kan VS Code debuginformatie tonen op basis van TypeScript-broncode, zelfs als daadwerkelijke code die wordt uitgevoerd transpileerde JavaScript is
+
+
+
+tsconfig.json
+{
+   "compilerOptions": {
+       "sourceMap": true,
+   }
+}
+
+instrueer tsc om .map bestanden te genereren naast .js bestanden
+
+index.ts
+function add(a: number, b: number): number {
+   return a - b;  // Fout! Dit moet een optelling zijn.
+}
+
+console.log(add(5, 3));       
+// Verwachte output: 8, Huidige output: 2
+
+
+build
+npm run build
+
+Er wordt een index.js en index.js.map bestand aangemaakt
+
+Breakpoint
+Plaats een breakpoint voor regelnummer van console.log()
+
+Debug
+Ga naar de “Run and debug”
+
+Klik op “Run and Debug” en kies voor “Node.js”
+Klik bovenaan op de groene pijl
+
+bedieningsknoppen voor debug verschijnen 
+
+De Variabelen, Watch en Call Stack komen tevoorschijn
+"call stack" (aanroepstack) houdt hiërarchie van functie-aanroepen bij die momenteel worden uitgevoerd in programma
+
+

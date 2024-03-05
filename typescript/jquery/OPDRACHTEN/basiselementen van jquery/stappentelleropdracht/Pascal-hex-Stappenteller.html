@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Stappenteller</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<button id="stappen">0</button>
+<script>
+        $(document).ready(function(){
+        let stappen = 0;
+        let $knop = $('#stappen');
+        $knop.on('click', function(){
+            let huidigeStappen = parseInt($knop.text(), 10);
+            stappen = huidigeStappen + 1;
+            $knop.text(stappen);
+            console.log("Aantal stappen: " + stappen);
+        });
+    });
+</script>
+</body>
+</html>

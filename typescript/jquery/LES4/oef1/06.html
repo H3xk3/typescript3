@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animate Curtain</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: #000;
+        }
+        div {
+            margin-bottom: 25px;
+        }
+        ul {
+            margin: 0 0 1em;
+            width: 125px;
+            list-style: none;
+        }
+        li {
+            width: 80px;
+            height: 40px;
+            background: #444;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="animate__animated animate__bounceIn">Animatie met animate.css</h1>
+    <div>
+        <a id="link" href="#">Flash de box</a>
+        <div id="box" class="animate__animated"></div>
+    </div>
+    <div>
+        Naam:
+        <input id="naam" type="text"></input>
+        <button id="knop">Verzend</button>
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let $link = $('#link');
+            let $box = $('#box');
+            let $knop = $('#knop');
+            let $naam = $('#naam');
+            let $resultaat = $('#resultaat');
+
+            // Animate function
+            function animate(element_ID, animatieClass) {
+                element_ID.addClass(animatieClass);
+                window.setTimeout(function() {
+                    element_ID.removeClass(animatieClass);
+                }, 1300);
+            };
+
+            // Flash the box
+            $link.on('click', function() {
+                animate($box, "animate__flash");
+            });
+
+            // Shake animation for input on "Verzend" click
+            $knop.on('click', function() {
+                let naamValue = $naam.val().trim(); 
+                if (naamValue === 0) {
+                    animate($naam, "animate__shakeX");
+                } 
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css">
+        .bold {
+            font-weight: bold;
+        }
+        .odd {
+            background-color: rgb(196, 90, 220);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("table tr:first").addClass("bold");
+            $("table tr:even").addClass("odd");
+        });
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Lorem ipsum dolor sit amet</td>
+        </tr>
+        <tr>
+            <td>consectetur adipisicing elit</td>
+        </tr>
+        <tr>
+            <td>sed do eiusmod tempor incididunt</td>
+        </tr>
+        <tr>
+            <td>ut labore et dolore magna aliqua</td>
+        </tr>
+        <tr>
+            <td>Ut enim ad minim veniam</td>
+        </tr>
+        <tr>
+            <td>quis nostrud exercitation ullamco laboris</td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+Oefeningen
+Basic Types
+typescript
+Copy code
+// 1. Basic Types
+const leeftijdStudent: number = 25;
+const achternaam: string = "Jansen";
+const isStudent: boolean = true;
+console.log(`De leeftijd van ${achternaam} is ${leeftijdStudent}. Ingeschreven als student is: ${isStudent}`);
+Uitvoer:
+
+csharp
+Copy code
+De leeftijd van Jansen is 25. Ingeschreven als student is: true
+Array
+typescript
+Copy code
+// 2. Array
+const dagenVanDeWeek: string[] = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
+console.log(`Vandaag is het ${dagenVanDeWeek[0]}.`);
+Uitvoer:
+
+csharp
+Copy code
+Vandaag is het Maandag.
+Tuple
+typescript
+Copy code
+// 3. Tuple
+const persoonInfo: [number, string] = [30, "Pieter"];
+console.log(`Persoon Info: Naam is ${persoonInfo[1]} en de leeftijd is ${persoonInfo[0]}.`);
+Uitvoer:
+
+csharp
+Copy code
+Persoon Info: Naam is Pieter en de leeftijd is 30.
+Enum
+typescript
+Copy code
+// 4. Enum
+enum Windrichting {
+   Noord,
+   Oost,
+   Zuid,
+   West
+}
+const huidigeRichting: Windrichting = Windrichting.Noord;
+console.log(`De wind komt uit ${huidigeRichting}.`);
+Uitvoer:
+
+Copy code
+De wind komt uit Noord.
+Aanvullende Enum Oplossing
+typescript
+Copy code
+// Aanvullende Enum Oplossing
+enum Seasons {
+   Spring,
+   Summer,
+   Autumn,
+   Winter
+}
+const currentSeason: Seasons = Seasons.Autumn;
+console.log(currentSeason); // Dit zal de index van Autumn weergeven, bijv. 2
+Oplossing Met Planeten Enum
+typescript
+Copy code
+// Oplossing Met Planeten Enum
+enum Planets {
+   Mercury = "Small and close to the Sun",
+   Venus = "Similar in size to Earth, but very hot",
+   Earth = "Our home planet",
+   Mars = "The red planet",
+   Jupiter = "The largest planet",
+   Saturn = "Known for its rings",
+   Uranus = "An ice giant",
+   Neptune = "A distant blue world"
+}
+const favoritePlanetInfo: Planets = Planets.Mars;
+console.log(`Mijn favoriete planeet: ${favoritePlanetInfo}`);
+Uitvoer:
+
+yaml
+Copy code
+Mijn favoriete planeet: The red planet
+Any en Unknown
+typescript
+Copy code
+// 5. Any en Unknown
+let mijnData: any = "Dit kan alles zijn!";
+mijnData = 100;  
+let externeInput: unknown;
+externeInput = "Wat je wil intikken."
+
+console.log(`Mijn data: ${mijnData}`);
+console.log(`Externe input: ${externeInput}`);
+Uitvoer:
+
+yaml
+Copy code
+Mijn data: 100
+Externe input: Wat je wil intikken.
+Arrow Functies en Default Parameters
+typescript
+Copy code
+// 1. Arrow Functie met Default Parameters
+const calculate = (x: number, y: number, operator: string = "add"): number => {
+   if (operator === "subtract") {
+       return x - y;
+   }
+   return x + y;
+};
+
+console.log(calculate(5, 3));          // Outputs: 8
+console.log(calculate(5, 3, "subtract"));  // Outputs: 2
+
+// 2. Default Parameters en Arrow Functies
+const introduce = (name: string, age: number = 30): string => `Hello, my name is ${name} and I am ${age} years old.`;
+
+console.log(introduce("Alice"));          // Outputs: Hello, my name is Alice and I am 30 years old.
+console.log(introduce("Bob", 40));        // Outputs: Hello, my name is Bob and I am 40 years old.
+Object Methode
+typescript
+Copy code
+// 3. Object Methode
+const user = {
+   name: "Charlie",
+   age: 35,
+   describe() {
+       return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+   }
+};
+
+console.log(user.describe()); // Outputs: Hello, my name is Charlie and I am 35 years old.
+Dit zijn de oplossingen voor de oefeningen die je hebt gegeven. Als je nog andere vragen hebt of meer hulp nodig hebt, laat het me gerust weten!
+
+
+
+
+

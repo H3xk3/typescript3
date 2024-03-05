@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Animeer Site Menu</title>
+    <style>
+        div#menu {
+            width: 150px;
+            left: -180px;
+            position: absolute;
+            z-index: 100;
+            transition: width 0.3s;
+        }
+        div#menu ul li {
+            margin-bottom: 1px;
+            position: relative;
+            float: left;
+        }
+        div#menu ul#unordereList li a {
+            width: 150px;
+            height: 22px;
+            background-color: #00293E;
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            padding: 7px 10px 0 0;
+            text-align: right;
+            font-weight: bold;
+            cursor: pointer;
+            transition: width 0.2s, color 0.2s; 
+        }
+        div#menu ul#unordereList li a:hover {
+            background-color: #00546C;
+            width: 300px;
+        }
+        div#menu ul#unordereList li a {
+            width: 150px;
+            transition: width 0.2s, background-color 0.2s, color 0.2s; 
+        }
+        div#menu ul#unordereList li.activated a {
+            color: #3A90A4;
+        }
+        #inhoud {
+            left: 50px;
+            position: absolute;
+            width: 500px;
+        }
+        .content-item {
+            display: none; 
+        }
+        .content-item.active {
+            display: block; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <div class="menu" id="menu">
+            <ul id="unordereList">
+                <li class="activated"><a href="#">Menu 1</a></li>
+                <li class="disactivated"><a href="#">Menu 2</a></li>
+                <li class="disactivated"><a href="#">Menu 3</a></li>
+                <li class="disactivated"><a href="#">Menu 4</a></li>
+                <li class="disactivated"><a href="#">Menu 5</a></li>
+                <li class="disactivated"><a href="#">Menu 6</a></li>
+            </ul>
+        </div>
+        <div class="content" id="inhoud">
+            <div class="content-item active">
+                <h2>Inhoud 1</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate fuga, officiis, perspiciatis assumenda eius recusandae eaque alias cum fugiat molestiae dolor. Recusandae minima cumque alias, ex molestiae consequuntur ab aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quis ducimus, officiis nostrum fuga dignissimos modi, cumque illo fugit facere asperiores accusamus nam architecto sapiente?</p>
+            </div>
+            <div class="content-item">
+                <h2>Inhoud 2</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum tempore saepe eveniet iste, non quibusdam minima adipisci eius recusandae soluta, animi quod molestiae magni aliquam nesciunt natus libero ratione vel?</p>
+            </div>
+            <div class="content-item">
+                <h2>Inhoud 3</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur laborum soluta reprehenderit voluptatum cupiditate corrupti incidunt quam id atque eaque, odit maxime expedita adipisci ab quasi cum sequi? Quo, recusandae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid qui nobis quas aspernatur tempora excepturi quam dolore illum quo, accusamus aliquam facere quibusdam placeat id!</p>
+            </div>
+            <div class="content-item">
+                <h2>Inhoud 4</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit accusantium consequatur explicabo maxime saepe asperiores, ipsam temporibus quia non suscipit labore, officiis dolores voluptatum doloribus, minus a! Inventore, minima ex.</p>
+            </div>
+            <div class="content-item">
+                <h2>Inhoud 5</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptatem sunt hic! Aperiam officiis, deleniti sunt perspiciatis exercitationem soluta nemo, voluptas sed possimus eveniet animi, blanditiis quos praesentium iste ab? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium magnam dolor delectus qui quidem similique consequatur laboriosam doloribus nisi cumque, unde fugiat labore repellat placeat!</p>
+            </div>
+            <div class="content-item">
+                <h2>Inhoud 6</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed obcaecati nostrum veniam quos officiis quisquam, modi optio temporibus quo, ea enim provident harum mollitia, quasi totam! Placeat mollitia natus pariatur reiciendis, minima similique ea vitae magni veritatis praesentium. Sit voluptatem consequatur excepturi inventore dolore provident impedit adipisci rem obcaecati aperiam.  Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque soluta sint illum incidunt voluptate dolor reiciendis eaque nobis eligendi fugit, tempore saepe aliquam alias blanditiis at! Dignissimos, labore! Itaque, saepe.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            function setMenuColors() {
+                $("ul#unordereList li").each(function() {
+                    if ($(this).hasClass("activated")) {
+                        $(this).find("a").css({
+                            "backgroundColor": "#00546C",
+                            "color": "red"
+                        });
+                    } else {
+                        $(this).find("a").css({
+                            "backgroundColor": "#00293E",
+                            "color": "#ffffff"
+                        });
+                    }
+                });
+            }
+            setMenuColors();
+            $("ul#unordereList li").on("click", function(event) {
+                event.preventDefault();
+                let index = $(this).index();
+                $(this).addClass("activated").removeClass("disactivated").siblings().removeClass("activated").addClass("disactivated");
+                $(".content-item").removeClass("active").eq(index).addClass("active").slideDown().siblings().slideUp();
+                setMenuColors();
+            });
+            $("ul#unordereList li").hover(
+                function() {
+                    if (!$(this).hasClass("activated")) {
+                        $(this).find("a").css({
+                            "backgroundColor": "red",
+                            "width": "250px"
+                        });
+                    }
+                },
+                function() {
+                    if (!$(this).hasClass("activated")) {
+                        $(this).find("a").css({
+                            "backgroundColor": "#00293E",
+                            "width": "150px"
+                        });
+                    }
+                }
+            );
+            $("#menu").mouseleave(function() {
+                $("ul#unordereList li").each(function() {
+                    $(this).find("a").css({
+                        "backgroundColor": "#00293E",
+                        "width": "150px"
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

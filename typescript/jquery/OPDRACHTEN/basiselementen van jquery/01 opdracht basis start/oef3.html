@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#test").children().css("background-color", "yellow");
+        });
+    </script>
+    <ol>
+        <li>Level 1, Item 1</li>
+        <ol>
+            <li id="test">Level 2, Item 1
+                <ol>
+                    <li>Level 3, Item 1</li>
+                    <li>Level 3, Item 2</li>
+                </ol>
+            </li>
+            <li>Level 2, Item 2</li>
+        </ol>
+    </ol>
+</body>
+
+</html>

@@ -1,0 +1,360 @@
+jQuery
+Animatie
+
+DRY: Don’t Repeat Yourself
+code die meermaals wordt uitgevoerd in aparte functie zetten
+
+overzichtelijker
+gemakkelijker te onderhouden
+
+
+
+Analogie
+afdeling 1
+
+
+
+
+
+
+
+
+
+afdeling 2
+
+uitsplitsen van doosvouwer
+
+Voorbeeld
+berekening van 2 getallen moet meerdere keren gebeuren
+
+<p>
+    	<input id="g1">
+    	<input id="g2">
+    	<button id="bereken1">Bereken</button>
+    	<input id="result1">
+</p>
+<p>
+    	<input id="g3">
+    	<input id="g4">
+    	<button id="bereken2">Bereken</button>
+    	<input id="result2">
+</p>
+
+$('#bereken1').on('click', function() {
+let result = parseInt($('#g1').val()) + parseInt($('#g2').val());
+   $('#result1').val(result);
+})
+
+$('#bereken2').on('click', function() {
+   	let result = parseInt($('#g3').val()) + parseInt($('#g4').val());
+   	$('#result2').val(result);
+})
+
+Met aparte functie
+$('#bereken1').on('click', function() {
+let result = berekenen($('#g1'), $('#g2'));
+   	$('#result1').val(result);
+})
+$('#bereken2').on('click', function() {
+   	let result = berekenen($('#g3'), $('#g4'));
+   	$('#result2').val(result);
+})
+function berekenen(nr1, nr2) {
+   	let berekend = parseInt(nr1.val()) + parseInt(nr2.val());
+   	return berekend;
+}
+
+animate.css
+https://daneden.github.io/animate.css/ 
+
+setTimeout()
+<p>Click op de button en na 3s zie je de alert</p>
+<button>Klik</button>
+
+$('button').on('click', function() {
+setTimeout(function() { 
+alert("Hello world"); }, 3000);
+})
+
+CDN toevoegen
+https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css 
+
+
+CSS code
+De duration van een animatie is 1s
+
+Gebruik
+
+<h1>Animatie met animate.css</h1>
+<div>
+    	<a id="link" href="#">Flash de box</a>
+    	<div id="box" class="animate__animated"></div>
+</div>
+<div>Naam:
+    	<input id="naam" type="text" class="animate__animated"> </input>
+    	<button id="knop">Verzend</button>
+</div>
+
+#box{
+  	width: 100px;
+  	height: 100px;
+  	background-color: #000;
+}
+div{
+  	margin-bottom: 25px;
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css
+">
+
+//cache al de opvragingen zodat die al beschikbaar zijn en niet meer moeten opgevraagd worden als ze benodigd zijn
+let $link = $('#link');
+   	let $box = $('#box');
+   	let $knop = $('#knop');
+   	let $naam = $('#naam');
+
+
+<h1 class="animate__animated animate__bounceIn">Animatie met animate.css</h1>
+
+$link.on('click', function() {
+ 	$box.addClass('animate__flash');
+  	window.setTimeout(function() {
+   	$box.removeClass('animate__flash');
+   	}, 1300);
+});
+
+    	
+
+$knop.on('click', function() {
+if ($naam.val().length == 0) {
+$naam.addClass('animate__shakeX');
+       window.setTimeout(function() {
+       	$naam.removeClass('animate__shakeX');
+       }, 1300);
+    }
+})
+
+
+
+
+
+DRY
+$link.on('click', function() {
+animatie($box, "animate__flash");
+});
+
+$knop.on('click', function() {
+if ($naam.val().length == 0) {
+animatie($naam, "animate__shakeX");
+}
+});
+
+function animatie(element_ID, animatieClass) {
+console.log(element_ID);
+element_ID.addClass(animatieClass);
+window.setTimeout(function() {
+       		element_ID.removeClass(animatieClass);
+       	}, 1300);
+};
+
+animate()
+.animate(properties,[ duration ],[ easing ],[ callback ] )
+
+properties: object of CSS properties and values used for animation
+duration: string or number determining how long animation will run
+easing: string indicating which easing function to use
+callback: function to call once the animation is complete, called once per matched element
+
+
+http://api.jquery.com/animate/ 
+
+
+Basic
+Hoogte animeren
+ <input type="button" id="animate" value="Animate"/>
+ <div id="content">Animate me</div>
+
+#content {
+  	background-color:#ffaa00;
+  	width:300px;
+  	height:30px;
+  	padding:3px;
+}
+
+$("#animate").on('click',function() {
+      	$("#content").animate(
+              	{"height": "80px"},
+              	"fast");
+     	});
+
+Combinatie
+hoogte en breedte
+$("#animate").on('click', function() {
+        	$("#content").animate(
+{ "height": "100px", "width": "250px" },"slow");
+});
+
+Combinatie met queue
+éérst de hoogte, dan pas de breedte
+
+$("#animate").on('click', function() {
+$("#content")
+   .animate({ "height": "100px" }, 500)
+   .animate({ "width": "250px" }, 500);
+});
+
+
+stop()
+stop huidige animatie om opbouw animatie te voorkomen
+<ul class="nostop">
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+<ul class="stop">
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+
+ul{
+  	margin: 0 0 1em;
+  	width: 125px;
+  	list-style: none;
+}
+li{
+  	width:80px;
+  	height:40px;
+  	background:#444;
+  	margin-bottom:10px;
+}
+
+$(".nostop li").hover(
+function() {
+$(this).animate({ width: "100px" }, 500);
+},
+function() {
+   	$(this).animate({ width: "80px" }, 500);
+}
+);
+
+$(".stop li").hover(
+function() {
+$(this).stop().animate({ width: "100px" }, 500);
+},
+function() {
+$(this).stop().animate({ width: "80px" }, 500);
+}
+);
+
+Curtains
+
+easing plugin
+http://gsgd.co.uk/sandbox/jquery/easing/ 
+
+
+<div class="leftcurtain"><img src="images/frontcurtain.jpg" /></div>
+.leftcurtain {
+    	width: 50%;
+    	height: 495px;
+    	top: 0px;
+    	left: 0px;
+    	position: absolute;
+    	z-index: 2;
+}
+
+<div class="rightcurtain"><img src="images/frontcurtain.jpg" /></div>
+.rightcurtain {
+    	width: 51%;
+    	height: 495px;
+    	right: 0px;
+    	top: 0px;
+    	position: absolute;
+    	z-index: 3;
+}
+.rightcurtain img,	.leftcurtain img {
+    	width: 100%;
+    	height: 100%;
+}
+
+1 element om op te klikken ->  bijhouden of curtain open is of niet
+
+let curtainopen = false;
+
+$(".rope").on('click',function(){
+
+});
+
+if (curtainopen == false){
+
+}
+
+animatie voor
+- rope
+- left curtain
+- right curtain
+
+rope:
+
+$(this).stop().animate({top: '0px' }, {duration:350, easing:'easeOutBounce'});
+
+leftcurtain:
+
+$(".leftcurtain").stop().animate({width:'60px'}, 2000 );
+
+rightcurtain:
+
+$(".rightcurtain").stop().animate({width:'60px'},2000 );
+
+nu zijn de curtains open:
+
+curtainopen = true;
+
+else{
+
+}
+
+$(this).stop().animate({top: '-40px' }, { duration:350, easing:'easeOutBounce'});
+$(".leftcurtain").stop().animate({width:'50%'}, 2000 );
+$(".rightcurtain").stop().animate({width:'51%'}, 2000 );
+curtainopen = false;
+
+Uitsplitsen
+let curtainopen = false;
+$('.rope').on('click',function(){
+if(curtainopen==false){
+   		animatie('0px','60px','60px',true);
+   	}
+   	else{
+   		animatie('-40px','50%','51%',false);
+   	}
+})
+
+function animatie(top,widthL,widthR,copen){
+
+}
+
+Opgelet: vervang this door .rope
+
+$('.rope').stop().animate({top:top},{ duration:350, easing:'easeOutBounce'});
+$(".leftcurtain").stop().animate({width:widthL},2000);
+$(".rightcurtain").stop().animate({width:widthR},2000);
+curtainopen=copen;
+
+function animatie(top, widthL, widthR, copen) {
+$('.rope').stop().animate({ top: top }, { duration: 350, easing: 'easeOutBounce' });
+$(".leftcurtain").stop().animate({ width: widthL }, 2000);
+$(".rightcurtain").stop().animate({ width: widthR }, 2000);
+curtainopen = copen;
+}
+Totale code
+
+let curtainopen = false;
+$('.rope').on('click', function() {
+if (curtainopen == false) {
+animatie('0px', '60px', '60px', true);
+}
+else {
+animatie('-40px', '50%', '51%', false);
+}
+})

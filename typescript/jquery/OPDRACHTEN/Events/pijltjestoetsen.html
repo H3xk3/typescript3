@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pascal hex events-pijltjestoetsen</title>
+    <style>
+        .kader {
+            border: 9px solid red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('input').on({
+                focus: function() {
+                    $(this).addClass('kader');
+                },
+                blur: function() {
+                    $(this).removeClass('kader');
+                }
+            });
+
+            let vorigeTekst = ""; // Variabele om vorige toetsen bij te houden
+            $(document).on('keyup', function(event) {
+                let keycode = event.which;
+                let keyNaam = '';
+                switch(keycode) {
+                    case 37:
+                        keyNaam = 'Keylinks';
+                        break;
+                    case 38:
+                        keyNaam = 'Keyomhoog';
+                        break;
+                    case 39:
+                        keyNaam = 'Keyrechts';
+                        break;
+                    case 40:
+                        keyNaam = 'Keyomlaag';
+                        break;
+                    default:
+                        return;
+                }
+                vorigeTekst += keyNaam + "<br>"; // Voeg de nieuwe toets toe aan de bestaande tekst
+                $('#key').html("Vorige toetsen:<br>" + vorigeTekst);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <label for="naam">Naam:</label>
+        <input type="text" id="naam" name="naam"><br><br>
+        <label for="achternaam">Achternaam:</label>
+        <input type="text" id="achternaam" name="achternaam">
+    </div>
+    <div id="key"></div>
+</body>
+</html>

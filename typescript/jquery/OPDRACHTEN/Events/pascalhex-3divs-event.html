@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pascal Hex 3 Divs Events</title>
+<style>
+    .box {
+        margin: 10px;
+        padding: 12px;
+        border: 2px solid #666;
+        width: 60px;
+        cursor: pointer;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.box').on('click', function(event) {
+            console.log('Type:', event.type);
+            console.log('Target:', event.target.toString());
+            console.log('Target InnerHTML:', event.target.innerHTML);
+        });
+        $('.box').hover(
+            function() {
+                $(this).css('width', '100px');
+            },
+            function() {
+                $(this).css('width', '60px');
+            }
+        );
+    });
+</script>
+</head>
+<body>
+    <div class="box" style="color:white; background-color: blue;">Blauw</div>
+    <div class="box" style="color:white; background-color: green;">Groen</div>
+    <div class="box" style="color:white; background-color: red;">Rood</div>
+</body>
+</html>

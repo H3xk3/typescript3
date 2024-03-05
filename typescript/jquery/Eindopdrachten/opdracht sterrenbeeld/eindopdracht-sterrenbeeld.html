@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sterrenbeeld Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;}
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);}
+        .title {
+            text-align: center;
+            color: #007bff;}        
+        .form {
+            margin-top: 20px;}
+        .form-group {
+            margin-bottom: 20px;}
+        .label {
+            display: block;
+            font-weight: bold;}
+        .input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;}
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;}
+        .button:hover {
+            background-color: #0056b3;}
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;}
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;}
+        .sterrenbeeld-img {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            margin-top: 20px;}
+    </style>
+    <script>
+        $(document).ready(function() {
+            let dagOk = false;
+            let maandOk = false;
+
+            $('#geboortedag').val('Bijv. 15');
+            $('#geboortemaand').val('Bijv. 5');
+
+            $('#geboortedag, #geboortemaand').focus(function() {
+                if ($(this).val() === 'Bijv. 15' || $(this).val() === 'Bijv. 5') {
+                    $(this).val('');
+                }
+            });
+        
+            $('.tooltip').hover(function() {
+                let tooltip = $(this).children(".tooltiptext");
+                tooltip.css("visibility", "visible");
+            }, function() {
+                let tooltip = $(this).children(".tooltiptext");
+                tooltip.css("visibility", "hidden");
+            });
+        
+            $('#geboortedag').blur(function() {
+                let dag = parseInt($(this).val());
+                if (isNaN(dag) || dag < 1 || dag > 31) {
+                    $('#foutmelding').text('Voer een geldige dag in (1-31)');
+                    dagOk = false;
+                } else {
+                    $('#foutmelding').text('');
+                    dagOk = true;
+                }
+            });
+        
+            $('#geboortemaand').blur(function() {
+                let maand = parseInt($(this).val());
+                if (isNaN(maand) || maand < 1 || maand > 12) {
+                    $('#foutmelding').text('Voer een geldige maand in (1-12)');
+                    maandOk = false;
+                } else {
+                    $('#foutmelding').text('');
+                    maandOk = true;
+                }
+            });
+        
+            $('#berekenBtn').click(function() {
+                if (dagOk && maandOk) {
+                    let dag = parseInt($('#geboortedag').val());
+                    let maand = parseInt($('#geboortemaand').val());
+                    let sterrenbeeld = berekenSterrenbeeld(dag, maand);
+                    $('#sterrenbeeldResultaat').text('Je sterrenbeeld is: ' + sterrenbeeld);
+                    $('#sterrenbeeldResultaat').fadeIn(); 
+
+                    $('.sterrenbeeld-img').hide();
+                    $('#' + sterrenbeeld.toLowerCase()).fadeIn(); 
+                } else {
+                    $('#foutmelding').text('Controleer de invoer voor dag en maand');
+                }
+            });
+
+            function berekenSterrenbeeld(dag, maand) {
+                if ((maand == 1 && dag >= 1 && dag <= 19) || (maand == 12 && dag >= 21 && dag <= 31)) {
+                    return "Steenbok";
+                } else if ((maand == 1 && dag >= 20 && dag <= 31) || (maand == 2 && dag >= 1 && dag <= 18)) {
+                    return "Waterman";
+                } else if ((maand == 2 && dag >= 19 && dag <= 28) || (maand == 3 && dag >= 1 && dag <= 20)) {
+                    return "Vissen";
+                } else if ((maand == 3 && dag >= 21 && dag <= 31) || (maand == 4 && dag >= 1 && dag <= 20)) {
+                    return "Ram";
+                } else if ((maand == 4 && dag >= 21 && dag <= 30) || (maand == 5 && dag >= 1 && dag <= 21)) {
+                    return "Stier";
+                } else if ((maand == 5 && dag >= 22 && dag <= 31) || (maand == 6 && dag >= 1 && dag <= 21)) {
+                    return "Tweelingen";
+                } else if ((maand == 6 && dag >= 22 && dag <= 30) || (maand == 7 && dag >= 1 && dag <= 22)) {
+                    return "Kreeft";
+                } else if ((maand == 7 && dag >= 23 && dag <= 31) || (maand == 8 && dag >= 1 && dag <= 22)) {
+                    return "Leeuw";
+                } else if ((maand == 8 && dag >= 23 && dag <= 31) || (maand == 9 && dag >= 1 && dag <= 22)) {
+                    return "Maagd";
+                } else if ((maand == 9 && dag >= 23 && dag <= 30) || (maand == 10 && dag >= 1 && dag <= 22)) {
+                    return "Weegschaal";
+                } else if ((maand == 10 && dag >= 23 && dag <= 31) || (maand == 11 && dag >= 1 && dag <= 22)) {
+                    return "Schorpioen";
+                } else if ((maand == 11 && dag >= 23 && dag <= 30) || (maand == 12 && dag >= 1 && dag <= 20)) {
+                    return "Boogschutter";
+                } else {
+                    return "Ongeldige datum";
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Sterrenbeeld Calculator</h1>
+        <form id="sterrenbeeldForm" class="form">
+            <div class="form-group">
+                <label for="geboortedag" class="label">Geboortedag:</label>
+                <input type="text" id="geboortedag" name="geboortedag" placeholder="Bijv. 15" class="input" />
+                <span class="tooltip" id="tooltipDag">Voer een dag in (1-31)</span>
+            </div>
+            <div class="form-group">
+                <label for="geboortemaand" class="label">Geboortemaand:</label>
+                <input type="text" id="geboortemaand" name="geboortemaand" placeholder="Bijv. 5" class="input" />
+                <span class="tooltip" id="tooltipMaand">Voer een maand in (1-12)</span>
+            </div>
+            <button type="button" id="berekenBtn" class="button">Ontdek je Sterrenbeeld</button>
+            <div id="foutmelding" class="error"></div>
+            <div id="sterrenbeeldResultaat" class="result" style="display: none;"></div>
+            <img src="images/steenbok.jpg" id="steenbok" class="sterrenbeeld-img" alt="Steenbok">
+            <img src="images/waterman.jpg" id="waterman" class="sterrenbeeld-img" alt="Waterman">
+            <img src="images/vissen.jpg" id="vissen" class="sterrenbeeld-img" alt="Vissen">
+            <img src="images/ram.jpg" id="ram" class="sterrenbeeld-img" alt="Ram">
+            <img src="images/stier.jpg" id="stier" class="sterrenbeeld-img" alt="Stier">
+            <img src="images/tweelingen.jpg" id="tweelingen" class="sterrenbeeld-img" alt="Tweelingen">
+            <img src="images/kreeft.jpg" id="kreeft" class="sterrenbeeld-img" alt="Kreeft">
+            <img src="images/leeuw.jpg" id="leeuw" class="sterrenbeeld-img" alt="Leeuw">
+            <img src="images/maagd.jpg" id="maagd" class="sterrenbeeld-img" alt="Maagd">
+            <img src="images/weegschaal.jpg" id="weegschaal" class="sterrenbeeld-img" alt="Weegschaal">
+            <img src="images/schorpioen.jpg" id="schorpioen" class="sterrenbeeld-img" alt="Schorpioen">
+            <img src="images/boogschutter.jpg" id="boogschutter" class="sterrenbeeld-img" alt="Boogschutter">
+        </form>
+    </div>
+</body>
+</html>

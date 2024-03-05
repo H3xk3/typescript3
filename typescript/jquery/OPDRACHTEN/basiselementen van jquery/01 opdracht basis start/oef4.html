@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .highlight {
+            background-color: yellow;}
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("p:contains('hallo')").addClass("highlight");
+        });
+    </script>
+    <p>hallo</p>
+    <p>wereld</p>
+    <p>hoe</p>
+    <p>gaat</p>
+    <p>het</p>
+    <p>hallo wereld</p>
+    <p>hoe gaat het</p>
+</body>
+
+</html>

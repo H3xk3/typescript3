@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <h1>Share my site!</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet metus mi. Vestibulum urna arcu, ultricies nec nisl ut, pellentesque aliquet orci. Nam hendrerit aliquam eleifend. Nulla ut ante vel elit bibendum varius. Aliquam placerat, quam ac efficitur porta, lacus odio eleifend purus, in aliquam erat dolor sit amet nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent sodales risus nec laoreet gravida.</p>
+    <p>Duis iaculis a diam eu feugiat. Praesent in augue maximus, pellentesque eros quis, elementum massa. Morbi elementum elit at libero mollis, vitae condimentum quam tristique. Ut a aliquam nibh, id scelerisque est. Duis placerat pulvinar elementum. Donec vitae condimentum nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce mi augue, pellentesque at sodales et, fringilla ornare ante.</p>
+    <p>Quisque mattis tincidunt mattis. Integer euismod volutpat tristique. Curabitur in eros feugiat, aliquam mauris non, ullamcorper tortor. Duis ut magna id tortor bibendum auctor. Morbi sed sodales enim. Mauris commodo sem quis mauris fringilla ullamcorper. Integer sit amet quam neque. Praesent sit amet rhoncus sem. Mauris non leo quis tellus gravida condimentum eget a purus. Ut et tincidunt velit, ac aliquet risus.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet metus mi. Vestibulum urna arcu, ultricies nec nisl ut, pellentesque aliquet orci. Nam hendrerit aliquam eleifend. Nulla ut ante vel elit bibendum varius. Aliquam placerat, quam ac efficitur porta, lacus odio eleifend purus, in aliquam erat dolor sit amet nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent sodales risus nec laoreet gravida.</p>
+    <p>Duis iaculis a diam eu feugiat. Praesent in augue maximus, pellentesque eros quis, elementum massa. Morbi elementum elit at libero mollis, vitae condimentum quam tristique. Ut a aliquam nibh, id scelerisque est. Duis placerat pulvinar elementum. Donec vitae condimentum nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce mi augue, pellentesque at sodales et, fringilla ornare ante.</p>
+    <p>Quisque mattis tincidunt mattis. Integer euismod volutpat tristique. Curabitur in eros feugiat, aliquam mauris non, ullamcorper tortor. Duis ut magna id tortor bibendum auctor. Morbi sed sodales enim. Mauris commodo sem quis mauris fringilla ullamcorper. Integer sit amet quam neque. Praesent sit amet rhoncus sem. Mauris non leo quis tellus gravida condimentum eget a purus. Ut et tincidunt velit, ac aliquet risus.</p>
+    <div id="social">
+        <div class="share_wrap">
+            <img id="share" src="img/share.png" alt="share" />
+        </div>
+        <div id="buttons">
+            <img src="img/facebook.png" width="100px" alt="facebook share" />
+            <img src="img/google.jpeg" width="100px" alt="google+ share" />
+            <img src="img/twitter.png" width="100px" alt="twitter share" />
+        </div>
+        <div id="close_wrap">
+            <img id="close" src="img/close.png" alt="share" />
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#share').click(function () {
+                $('#social').animate({ right: '0' }, 500);
+                $('#share').fadeOut(300);
+            });
+
+            $('#close').click(function () {
+                $('#social').animate({ right: '-137px' }, 500);
+                $('#share').fadeIn(300);
+            });
+        });
+    </script>
+</body>
+
+</html>

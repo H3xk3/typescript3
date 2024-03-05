@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <button id="google">Go to Google</button>
+    <p id="text"></p>
+    <button>Don't go to google</button>
+    <script>
+        $(document).ready(function() {
+            $("button#google").click(function(){
+                window.location="http://www.google.com";
+            });
+            $("button#google").mouseover(function(){
+                $("p#text").text("Go to google");
+                }); 
+                $("button#google").mouseleave(function(){
+                    $("p#text").text("");
+                });
+        });
+    </script>
+</body>
+</html>

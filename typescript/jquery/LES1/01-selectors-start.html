@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Selectors-start</title>
+    <style>
+    .blue {
+        color: #00D;
+    }
+
+    .red {
+        color: #D00;
+    }
+
+    .green {
+        color: green;
+    }
+
+    .evenp {
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <h1>Dit is een h1</h1>
+        <p class="evenp">Lorem ipsum stuff</p>
+            <h1 id="tweedeh1">De tweede h1</h1>
+            <p>Lorem ipsum met een lijst</p>
+                <ul id="unorderedlist">
+                    <li>nr.1</li>
+                    <li>nr.2</li>
+                    <li>nr.3</li>
+                </ul>
+                    <h1>Nog maar een h1 dan</h1>
+                        <p class="evenp">Dit is de laatste lorem ipsum</p>
+
+
+
+    <h2 id="eersteh2">Eerste heading</h2>
+	<h2>tweede heading</h2>
+
+
+                    <p class="paragraaf">
+                        De standaard inhoud gedefinieerd in html zelf.
+                        </p>
+
+
+
+                        <a href="#"></a>
+
+
+                        
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        
+        $('h1').addClass('blue');
+        $('h1#tweedeh1').addClass('red');
+        $('ul#unorderedlist li:last').addClass('green');
+        $('p.evenp').css({
+            "border":"1px solid black",
+            "color":"purple",
+            'border-radius':"50px"
+        });
+
+        $('h2').css('font-style','italic');
+        $('h2#eersteh2').css('color','red'); 
+
+        let tekst = $('p.paragraaf').text();
+console.log(tekst);  
+        $('p.paragraaf').text('nieuwe inhoud' + tekst); 
+
+
+
+        $('a').attr('href','http://www.google.be');
+        $('a').html('Google');
+        $('a').attr('target', '_blank');
+
+    });
+    </script>
+</body>
+</html>

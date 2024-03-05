@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stappenteller</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <button id="stappenTeller">0</button>
+        <script>
+        $(document).ready(function() {
+            let stappenTeller = $("#stappenTeller");
+            let teller = 0;
+            
+            stappenTeller.click(function() {
+                teller++;
+                stappenTeller.text(teller);
+                console.log("Stap: " + teller);
+            });
+        });
+    </script>
+</body>
+</html>

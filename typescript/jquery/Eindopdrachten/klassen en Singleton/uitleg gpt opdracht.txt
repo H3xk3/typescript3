@@ -1,0 +1,74 @@
+
+Hier is hoe je de Logger klasse en de Users klasse met behulp van Singleton-patroon in TypeScript kunt implementeren:
+
+Logger.ts
+typescript
+Copy code
+export class Logger {
+    private static instance: Logger;
+    
+    private constructor() {}
+
+    public static getInstance(): Logger {
+        if (!Logger.instance) {
+            Logger.instance = new Logger();
+        }
+        return Logger.instance;
+    }
+
+    public log(message: string): void {
+        const timestamp = new Date().toISOString();
+        console.log(`${timestamp}: ${message}`);
+    }
+}
+Users.ts
+typescript
+Copy code
+import { Logger } from './Logger';
+
+export class Users {
+    private logger: Logger = Logger.getInstance();
+    private name: string;
+
+    constructor(name: string) {
+        this.name = name;
+        this.logger.log(`Een nieuwe gebruiker met de naam ${this.name} is aangemaakt.`);
+    }
+
+    public setName(newName: string): void {
+        this.logger.log(`De gebruikersnaam is veranderd van ${this.name} naar ${newName}.`);
+        this.name = newName;
+    }
+}
+main.ts
+typescript
+Copy code
+import { Users } from './Users';
+
+const users1 = new Users("John Doe");
+users1.setName("Jane Doe");
+In deze implementatie:
+
+Logger is de Singleton-klasse die verantwoordelijk is voor logging. Het heeft een private static instance variabele om de singleton-instantie bij te houden. De getInstance methode zorgt ervoor dat er slechts één instantie van Logger wordt gemaakt en teruggegeven. De log methode logt een bericht met een timestamp naar de console.
+
+Users is de klasse die de Logger gebruikt. In de constructor wordt een nieuwe gebruiker aangemaakt en gelogd met behulp van de Logger. De setName methode wijzigt de naam van de gebruiker en logt dit ook met behulp van de Logger.
+
+main.ts is waar we de Users klasse testen door een nieuwe gebruiker aan te maken en de naam te wijzigen. Dit zal de logberichten produceren zoals beschreven in de opdracht.
+
+Om dit uit te voeren, zorg ervoor dat je TypeScript hebt geïnstalleerd en de bestanden compileert naar JavaScript:
+
+bash
+Copy code
+tsc Logger.ts Users.ts main.ts
+Dit zal JavaScript-bestanden genereren die je kunt uitvoeren. Als je bijvoorbeeld Node.js gebruikt, kun je het volgende doen:
+
+bash
+Copy code
+node main.js
+Dit zal de logberichten afdrukken zoals verwacht:
+
+csharp
+Copy code
+2024-01-19T15:59:11.523Z: Een nieuwe gebruiker met de naam John Doe is aangemaakt.
+2024-01-19T15:59:11.528Z: De gebruikersnaam is veranderd van John Doe naar Jane Doe.
+Hiermee is de Logger klasse een Singleton geworden die ervoor zorgt dat er slechts één instantie van de logger is die overal in de applicatie kan worden gebruikt. De Users klasse maakt gebruik van deze Singleton logger om logberichten te produceren.

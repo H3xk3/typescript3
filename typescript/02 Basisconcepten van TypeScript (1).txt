@@ -1,0 +1,2025 @@
+﻿Basisconcepten van TypeScript
+In dit hoofdstuk zullen we enkele fundamentele concepten van TypeScript bespreken die je zullen helpen bij het begrijpen van de taal en hoe je deze kunt gebruiken in je projecten.
+Maak een nieuwe map 04-basisconcepten en zet een project op.
+Variabelen en Datatypes
+Variabelen zijn een essentieel onderdeel van elke programmeertaal, en TypeScript is daarop geen uitzondering. In TypeScript kun je variabelen declareren met behulp van de let of const sleutelwoorden, vergelijkbaar met JavaScript. Hier is een voorbeeld:
+let naam: string = "John";
+const leeftijd: number = 30;
+
+
+In dit voorbeeld hebben we twee variabelen gedeclareerd: naam en leeftijd. We hebben ook hun datatypes gespecificeerd met behulp van :, dit geeft aan welk soort waarde elke variabele kan bevatten.
+Er zijn verschillende datatypes beschikbaar in TypeScript.
+Wanneer te gebruiken:
+const: Gebruik dit als standaard wanneer je een variabele declareert. Het maakt je code voorspelbaarder omdat het garandeert dat de waarde van de variabele niet opnieuw wordt toegewezen. Dit is vooral handig in grotere codebases of wanneer je samenwerkt met andere ontwikkelaars.
+let: Gebruik dit alleen als je weet dat de variabele in de toekomst opnieuw moet worden toegewezen, zoals tellers in lussen, variabelen die waarden opslaan die kunnen veranderen als gevolg van gebruikersinteractie, enz.
+________________
+Datatypes
+number
+number: Voor numerieke waarden zoals gehele getallen of zwevende-kommagetallen.
+string
+string: Voor tekstuele gegevens, zoals teksten en karakters, elk teken op je toetsenbord en meer.
+boolean
+boolean: Voor logische waarden, true of false.
+Bijvoorbeeld: const member: boolean = true;
+array
+array: Voor het opslaan van lijsten met waarden van hetzelfde type. Je kan ook een combinatie van typen maken, dit zien we in een later hoofdstuk.
+const getallen: number[] = [1, 2, 3];
+const namen: string[] = ["Anna", "Bob", "Charlie"];
+object
+object: Voor het opslaan van complexe datatypes, zoals objecten met eigenschappen en methoden.
+________________
+any
+any: Een speciaal datatype dat TypeScript vertelt om geen type controle uit te voeren. Dit wordt meestal gebruikt wanneer je de exacte datatype van een variabele niet kent of niet wilt specificeren.
+
+let data: any;
+data = 42;           // toegestaan
+data = "Hello";      // toegestaan
+data = [1, 2, 3];    // toegestaan
+data.myMethod();     // Geen typefout, ook al bestaat deze methode mogelijk niet.
+Het gebruik van any negeert in feite het type-systeem, waardoor je code vatbaar wordt voor runtimefouten die voorkomen hadden kunnen worden met striktere typing.
+unknown
+unknown: werd geïntroduceerd in TypeScript 3.0 als een veiliger alternatief voor any. Het vertegenwoordigt het type van een waarde die je nog niet kent, net als any, maar het is restrictiever.
+
+
+let dataUnknown: unknown;
+dataUnknown = 42;           // toegestaan
+dataUnknown = "Hello";      // toegestaan
+dataUnknown = [1, 2, 3];    // toegestaan
+// dataUnknown.myMethod(); // Typefout! TypeScript staat dit niet toe zonder een typecheck.
+if (typeof data === "string") {
+console.log(data.toUpperCase()); // Nu toegestaan, want we hebben gecontroleerd dat data een string is.
+}
+________________
+tuple
+Een tuple is een array-achtige structuur waarvan de lengte en de types van de elementen vooraf zijn bepaald.
+let point: [number, number];
+
+
+point = [10, 20];   // toegestaan
+// point = [10, 20, 30]; // Fout, te veel elementen
+// point = ["10", 20];   // Fout, verkeerd type voor het eerste element
+
+
+let complexTuple: [number, string, boolean] = [1, "one", true];
+enum
+Enums, of enumeraties, stellen je in staat om naamgeving te geven aan sets van numerieke of string waarden.
+Om gemakkelijk leesbare namen te associëren met specifieke waarden.
+Voor bijvoorbeeld dagen van de week, gebruikersrollen, kleuren, enz.
+enum Days {
+   Monday,
+   Tuesday,
+   Wednesday,
+   Thursday,
+   Friday,
+   Saturday,
+   Sunday
+}
+
+
+const today: Days = Days.Friday;
+console.log(today);  // Outputs: 4 (omdat Friday het vijfde item is, beginnend vanaf 0)
+
+
+enum Colors {
+   Red = "#FF0000",
+   Green = "#00FF00",
+   Blue = "#0000FF"
+}
+
+
+const favoriteColor: Colors = Colors.Green;
+console.log(favoriteColor);  // Outputs: "#00FF00"
+run build
+Als de build gerund wordt, dan wordt het .ts bestand gecompileerd naar een .js bestand. 
+Deze bevat dan volgende code:
+"use strict";
+let naam = "John";
+const leeftijd = 30;
+let member = true;
+let getallen = [1, 2, 3];
+let namen = ["Anna", "Bob", "Charlie"];
+let data;
+data = 42; // toegestaan
+data = "Hello"; // toegestaan
+data = [1, 2, 3]; // toegestaan
+data.myMethod(); // Geen typefout, ook al bestaat deze methode mogelijk niet.
+let dataUnknown;
+dataUnknown = 42; // toegestaan
+dataUnknown = "Hello"; // toegestaan
+dataUnknown = [1, 2, 3]; // toegestaan
+// dataUnknown.myMethod(); // Typefout! TypeScript staat dit niet toe zonder een typecheck.
+if (typeof data === "string") {
+   console.log(data.toUpperCase()); // Nu toegestaan, want we hebben gecontroleerd dat data een string is.
+}
+let point;
+point = [10, 20]; // toegestaan
+// point = [10, 20, 30]; // Fout, te veel elementen
+// point = ["10", 20];   // Fout, verkeerd type voor het eerste element
+let complexTuple = [1, "one", true];
+
+
+var Days;
+(function (Days) {
+   Days[Days["Monday"] = 0] = "Monday";
+   Days[Days["Tuesday"] = 1] = "Tuesday";
+   Days[Days["Wednesday"] = 2] = "Wednesday";
+   Days[Days["Thursday"] = 3] = "Thursday";
+   Days[Days["Friday"] = 4] = "Friday";
+   Days[Days["Saturday"] = 5] = "Saturday";
+   Days[Days["Sunday"] = 6] = "Sunday";
+})(Days || (Days = {}));
+const today = Days.Friday;
+console.log(today); // Outputs: 4 (omdat Friday het vijfde item is, beginnend vanaf 0)
+var Colors;
+(function (Colors) {
+   Colors["Red"] = "#FF0000";
+   Colors["Green"] = "#00FF00";
+   Colors["Blue"] = "#0000FF";
+})(Colors || (Colors = {}));
+let favoriteColor = Colors.Green;
+console.log(favoriteColor); // Outputs: "#00FF00"
+
+
+function begroet(naam) {
+   return `Hallo, ${naam}!`;
+}
+function logMessage(message) {
+   console.log(message);
+}
+logMessage('Hi');
+function begroet2(naam, taal = "Nederlands") {
+   return `Hallo, ${naam}! (${taal})`;
+}
+Oefening dataytypes
+Basic Types:
+Definieer een variabele voor een geheel getal en noem het leeftijdStudent.
+Definieer een variabele voor een tekstwaarde en noem het achternaam.
+Definieer een variabele die een waarheidswaarde (waar of onwaar) kan bevatten en noem het isStudent.
+Array:
+Definieer een array van strings die de namen van dagen in de week bevat en noem het dagenVanDeWeek.
+Tuple:
+Definieer een tuple die een leeftijd (nummer) en een naam (string) bevat en noem het persoonInfo.
+Enum:
+Definieer een enum voor de vier windrichtingen (Noord, Oost, Zuid, West) en noem het Windrichting.
+Definieer een enum voor de 4 seasons: Spring, Summer, Autumn, Winter.
+Maak een currentSeason variabele die Autumn bevat. Log currentSeason.
+Maak een enum voor Panets. Deze bevat de planeten en een uitleg:
+   Mercury = "Small and close to the Sun",
+   Venus = "Similar in size to Earth, but very hot",
+   Earth = "Our home planet",
+   Mars = "The red planet",
+   Jupiter = "The largest planet",
+   Saturn = "Known for its rings",
+   Uranus = "An ice giant",
+   Neptune = "A distant blue world"
+Maak een variabele favoritePlanet en stel die in op je favoriete planeet. Log deze variabele.
+Any en Unknown:
+Definieer een variabele met het type any en noem het mijnData.
+Definieer een andere variabele met het type unknown en noem het externeInput.
+Log de variabelen.
+________________
+Oplossing
+// 1. Basic Types
+let leeftijdStudent: number = 25;
+let achternaam: string = "Jansen";
+let isStudent: boolean = true;
+
+
+// 2. Array
+let dagenVanDeWeek: string[] = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"];
+
+
+// 3. Tuple
+let persoonInfo: [number, string] = [30, "Pieter"];
+
+
+// 4. Enum
+enum Windrichting {
+   Noord,
+   Oost,
+   Zuid,
+   West
+}
+let huidigeRichting: Windrichting = Windrichting.Noord;
+
+
+// 5. Any en Unknown
+let mijnData: any = "Dit kan alles zijn!";
+mijnData = 100;  // Dit is geldig met 'any' type
+let externeInput: unknown;
+
+
+// Gebruik de variabelen
+console.log(`De leeftijd van ${achternaam} is ${leeftijdStudent}.`);
+console.log(`Vandaag is het ${dagenVanDeWeek[0]}.`);
+console.log(`Persoon Info: Naam is ${persoonInfo[1]} en de leeftijd is ${persoonInfo[0]}.`);
+console.log(`De wind komt uit het ${Windrichting[huidigeRichting]}.`);
+console.log(`Mijn data: ${mijnData}`);
+Functies en hun Typen
+Retourwaarde
+Functies zijn herbruikbare codeblokken die een specifieke taak uitvoeren. In TypeScript kun je functies declareren zoals in JavaScript, maar je kunt ook de typen van parameters en retourwaarden specificeren.
+function begroet(naam: string): string {
+    return `Hallo, ${naam}!`;
+}
+In dit voorbeeld hebben we een functie begroet gedeclareerd die een parameter naam van het type string verwacht en een waarde van het type string retourneert. Dit betekent dat de functie een tekstbericht retourneert.
+De gecompileerde versie is:
+function begroet(naam) {
+   return `Hallo, ${naam}!`;
+}
+
+
+void
+Het void type in TypeScript wordt gebruikt in de context van functies om aan te geven dat een functie geen waarde retourneert.
+function logMessage(message: string): void {
+   console.log(message);
+}
+logMessage('Hi');
+________________
+
+
+Optionele parameters en standaardwaarden
+Je kunt ook optionele parameters en standaardwaarden instellen voor parameters:
+function begroet2(naam: string, taal: string = "Nederlands"): string {
+   return `Hallo, ${naam}! (${taal})`;
+}
+Hier hebben we een optionele parameter taal ingesteld met een standaardwaarde van "Nederlands". Dit betekent dat je de taal kunt opgeven bij het aanroepen van de functie, maar als je dat niet doet, wordt automatisch "Nederlands" gebruikt.
+De gecompileerde versie is:
+function begroet2(naam, taal = "Nederlands") {
+   return `Hallo, ${naam}! (${taal})`; 
+}
+Arrow Functies en 'this' gedrag in TypeScript en JavaScript
+Arrow functies, geïntroduceerd in ES6/ES2015, bieden een kortere syntax om functies te schrijven. Ze worden "arrow functies" genoemd vanwege hun => syntax.
+traditionele functie vs. een arrow functie
+// Traditionele functiedefinitie
+function greetings(name: string) {
+   return "Hello, " + name;
+}
+
+
+// Arrow functiedefinitie
+const greetingsArrow = (name: string) => "Hello, " + name;
+this gedrag
+Een van de meest onderscheidende kenmerken van arrow functies is hoe ze omgaan met de this waarde.
+In traditionele functies:
+* De waarde van this is gebaseerd op hoe de functie wordt aangeroepen. Het kan variëren afhankelijk van de context. Als een functie bijvoorbeeld als een methode van een object wordt aangeroepen, verwijst this naar dat object.
+In arrow functies:
+* De waarde van this wordt vastgelegd op het moment dat de functie wordt gedefinieerd, niet wanneer hij wordt aangeroepen. Arrow functies hebben geen eigen this; ze erven de this waarde van de omliggende (niet-arrow) code.
+Maak een nieuw bestand in de output map, NIET in de src map. We testen dit uit met een .js bestand, NIET met een .ts bestand.
+const persoon = {
+   naam: "John",
+   zegHallo: function () {
+       console.log(`Hallo, mijn naam is ${this.naam}`);
+       // Binnen een gewone (niet-arrow) functie wordt een nieuwe waarde van 'this' gecreëerd:
+       function innerFunctie() {
+           console.log(`Binnen de innerFunctie, mijn naam is ${this.naam}`);
+       }
+       innerFunctie();
+       // Binnen een arrow-functie wordt 'this' uit de omliggende scope (zegHallo in dit geval) genomen:
+       const innerArrowFunctie = () => {
+           console.log(`Binnen de innerArrowFunctie, mijn naam is ${this.naam}`);
+       }
+
+
+       innerArrowFunctie();
+   }
+}
+
+
+persoon.zegHallo();
+/*
+Hallo, mijn naam is John
+Binnen de innerFunctie, mijn naam is undefined
+Binnen de innerArrowFunctie, mijn naam is John
+*/
+
+
+In het geval van een vrije functie-aanroep (dat wil zeggen, de functie is niet gebonden aan een object en wordt niet als een constructor of als een methode aangeroepen), verwijst this in niet-strict mode naar het globale object (window in browsers). In strict mode verwijst this in een dergelijke aanroep naar undefined.
+Oefening functies
+Schrijf een fat arrow functie genaamd calculate. Deze functie moet twee nummers en een optionele operator accepteren.
+* Als de operator "subtract" is, moet de functie het verschil tussen de twee nummers retourneren.
+* In alle andere gevallen moet het de som van de twee nummers retourneren.
+Schrijf een arrow-functie genaamd introduce.
+* Deze functie moet een naam en een optionele leeftijd als parameters accepteren. Als er geen leeftijd is opgegeven, moet deze standaard 30 zijn.
+* De functie moet een string retourneren met de naam en leeftijd.
+Maak een object met de naam user met de eigenschappen name en age.
+* Voeg een methode toe aan dit object met de naam describe.
+* Deze methode moet een string retourneren met de naam en leeftijd van de gebruiker.
+
+
+De uitvoer is bv.
+8
+2
+Hello, my name is Alice and I am 30 years old.
+Hello, my name is Bob and I am 40 years old.
+Hello, my name is Charlie and I am 35 years old.
+
+
+________________
+Oplossing
+const calculate = (x: number, y: number, operator?: string) => {
+   if (operator === "subtract") {
+       return x - y;
+   }
+   return x + y;
+};
+
+
+console.log(calculate(5, 3));          // Outputs: 8
+console.log(calculate(5, 3, "subtract"));  // Outputs: 2
+
+
+// 2. Default Parameters en Arrow Functies
+const introduce = (name: string, age: number = 30) => `Hello, my name is ${name} and I am ${age} years old.`;
+
+
+console.log(introduce("Alice"));          // Outputs: Hello, my name is Alice and I am 30 years old.
+console.log(introduce("Bob", 40));        // Outputs: Hello, my name is Bob and I am 40 years old.
+
+
+// 3. 'this' Gedrag
+const user = {
+   name: "Charlie",
+   age: 35,
+   describe() {
+       return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+   }
+};
+
+
+console.log(user.describe()); // Outputs: Hello, my name is Charlie and I am 35 years old.
+Type-inferentie
+TypeScript heeft een feature genaamd type-inferentie. Dit betekent dat TypeScript automatisch probeert het datatype van een variabele te begrijpen op basis van de waarde die aan die variabele is toegewezen. Hier is een voorbeeld:
+let getal = 42; // TypeScript begrijpt dat getal een number is.
+In dit voorbeeld hebben we het datatype niet expliciet gespecificeerd. TypeScript analyseert echter de waarde 42 en begrijpt dat het een nummer is, dus het type van getal wordt automatisch ingesteld op number.
+Dit maakt TypeScript flexibel en helpt om code beknopt te houden zonder de noodzaak van overmatige datatype-specificaties.
+
+
+________________
+
+
+Debuggen met TypeScript
+Maak een nieuw project aan.
+Als je TypeScript-code schrijft en deze transpileert naar JavaScript, wil je mogelijk fouten debuggen in je oorspronkelijke TypeScript-code in plaats van de gegenereerde JavaScript. Dit is waar Source Maps van pas komen in combinatie met Visual Studio Code.
+Source maps zijn bestanden die de relatie beschrijven tussen de oorspronkelijke TypeScript-code en de gegenereerde JavaScript-code. Met source maps kan VS Code debuginformatie tonen op basis van de TypeScript-broncode, zelfs als de daadwerkelijke code die wordt uitgevoerd de transpileerde JavaScript is.
+Zorg ervoor dat je tsconfig.json bestand de volgende configuratie-opties bevat:
+{
+   "compilerOptions": {
+       "sourceMap": true,
+   }
+}
+
+
+Door sourceMap op true te zetten, instrueer je de TypeScript-compiler om .map bestanden te genereren naast de uitvoer .js bestanden.
+
+
+Plaats deze (foutieve) code in index.ts:
+function add(a: number, b: number): number {
+   return a - b;  // Fout! Dit moet een optelling zijn.
+}
+
+
+console.log(add(5, 3));       // Verwachte output: 8, Huidige output: 2
+
+
+
+
+In de Terminal build je de code. Er wordt een index.js en index.js.map bestand aangemaakt.
+npm run build
+
+
+Plaats een breakpoint voor de regelnummer van de console.log()
+  
+
+
+
+Ga naar de “Run and debug”
+  
+
+
+
+Klik op “Run and Debug” en kies voor “Node.js”.
+
+
+Klik bovenaan op de groene pijl.
+  
+
+
+
+De bedieningsknoppen voor de debug verschijnen:
+  
+
+
+
+De Variabelen, Watch en Call Stack komen tevoorschijn.
+De "call stack" (ook wel aanroepstack genoemd) is een fundamenteel concept in programmeertalen en debuggers. Het houdt de hiërarchie van functie-aanroepen bij die momenteel worden uitgevoerd in een programma. 
+  
+
+Class based programmeren
+Class-based programmeren, ook bekend als objectgeoriënteerd programmeren (OOP), is een paradigma waarbij je gegevens en gedrag (functies) bundelt in structuren die bekend staan als klassen. 
+TypeScript breidt JavaScript uit met typen en biedt ook ondersteuning voor klassen en objectgeoriënteerde principes.
+Maak een map aan “05-classbased” en zet een project op. Maak een bestand “classes.ts”
+Klasse definiëren
+Een klasse is een blauwdruk voor het maken van objecten (specifieke instanties van de class).
+Een klasse heeft een naam nodig, schrijf deze met een beginhoofdletter.
+Een klasse kan volgende onderdelen hebben:
+* eigenschappen of properties
+* constructor functie
+* methods
+class Animal {
+   // Eigenschappen
+   name: string;
+
+
+   // Constructor
+   constructor(name: string) {
+       this.name = name;
+   }
+
+
+   // Methode
+   makeSound() {
+       console.log(`${this.name} makes a sound`);
+   }
+}
+Oefening
+Maak een nieuw document. Maak een klasse Auto. Deze bevat eigenschappen: merk, model en bouwjaar.
+Oplossing                
+class Auto {
+   merk: string;
+   model: string;
+   bouwjaar: number;
+
+
+   constructor(merk: string, model: string, bouwjaar: number) {
+       this.merk = merk;
+       this.model = model;
+       this.bouwjaar = bouwjaar;
+   }
+}
+Objectinstanties maken
+Met behulp van de klassen kun je object instanties maken. Hier is hoe je een object maakt op basis van de Animal-klasse:
+const myAnimal = new Animal("Dog");
+De constructor functie wordt dan gebruikt om een nieuw object aan te maken op basis van de klasse. De this die gebruikt wordt in de constuctor verwijst naar het nieuwe object dat wordt aangemaakt.
+Oefening
+Maak 2 nieuwe objecten gebaseerd op de Auto klasse: 
+mijnAuto is een Toyota Corolla van 2020
+jouwauto is een Honda Civic van 2019
+________________
+Oplossing
+const mijnAuto = new Auto("Toyota", "Corolla", 2020);
+const jouwAuto = new Auto("Honda", "Civic", 2019);
+Eigenschappen en methoden gebruiken 
+Je kunt de eigenschappen en methoden van het object gebruiken, oproepen en instellen.
+console.log(myAnimal.name); // Geeft "Dog" weer
+myAnimal.makeSound(); // Roep de makeSound-methode aan
+myAnimal.name = "MyDog";
+console.log(myAnimal.name);// Geeft "MyDog" weer
+Oefening
+Log het merk van mijnAuto.
+Verander het bouwjaar van mijnAuto naar 2021 en log dit bouwjaar.
+Voeg een method toe aan de klasse: toonDetails(). Deze logt bv.volgende tekst: Toyota Corolla (Bouwjaar: 2021)
+Oplossing
+console.log(mijnAuto.merk); // Outputs: Toyota
+mijnAuto.bouwjaar = 2021;
+console.log(mijnAuto.bouwjaar); // Outputs: 2021
+
+
+Voeg toe in de klasse:
+toonDetails() {
+       console.log(`${this.merk} ${this.model} (Bouwjaar: ${this.bouwjaar})`);
+   }
+
+
+mijnAuto.toonDetails(); // Outputs: Toyota Corolla (Bouwjaar: 2021)
+
+
+________________
+Modifiers
+TypeScript biedt verschillende toegangsmodificatoren zoals public, private en protected, waarmee je de toegang tot eigenschappen en methoden kunt beheren. 
+public
+Wanneer een eigenschap of methode van een klasse als public is gemarkeerd, betekent dit dat deze eigenschap of methode vanuit elke willekeurige context kan worden geopend en gebruikt, zowel binnen als buiten de klasse. Dit is de standaardinstelling, als je niets definieert, wordt deze instelling automatisch toegepast.
+
+
+Maak een nieuw bestand aan in de “src” map: “public.ts”.
+
+
+class Person {
+   public name: string;
+
+
+   constructor(name: string) {
+       this.name = name;
+   }
+
+
+   public sayHello() {
+       console.log(`Hello, my name is ${this.name}.`);
+   }
+}
+
+
+const person1 = new Person("Alice");
+console.log(person1.name); // Toegang tot de 'name'-eigenschap van buiten de klasse
+person1.sayHello(); // Oproep van de 'sayHello'-methode van buiten de klasse
+
+
+
+
+private
+Het wordt gebruikt om de zichtbaarheid en toegankelijkheid van eigenschappen en methoden van een klasse te beperken tot alleen de klasse zelf, waardoor ze niet toegankelijk zijn van buitenaf.
+Maak een nieuw bestand aan in de “src” map: “private.ts”.
+class BankAccount {
+   private balance: number;
+   constructor(initialBalance: number) {
+       this.balance = initialBalance;
+   }
+   public deposit(amount: number) {
+       this.balance += amount;
+       console.log(`Deposit of funds: ${amount}`);
+   }
+   public withdraw(amount: number) {
+       if (amount <= this.balance) {
+           this.balance -= amount;
+           console.log(`Withdraw of funds: ${amount}`);
+       } else {
+           console.log("Insufficient funds.");
+       }
+   }
+   public getBalance() {
+       return this.balance;
+   }
+}
+________________
+
+
+const account1 = new BankAccount(1000);
+console.log(account1.getBalance()); 
+// Toegang tot de 'getBalance'-methode
+account1.deposit(500); 
+// Toegang tot de 'deposit'-methode
+account1.withdraw(200); 
+// Toegang tot de 'withdraw'-methode
+console.log(account1.getBalance()); 
+// Toegang tot de 'getBalance'-methode, deze heeft toegang tot de private balance property.
+
+
+// Directe toegang tot 'balance' zou een fout veroorzaken:
+// console.log(account1.balance); // Fout: Eigenschap 'balance' is privé en niet toegankelijk van buiten de klasse
+Protected
+De protected toegangsmodificator wordt gebruikt om de zichtbaarheid en toegankelijkheid van eigenschappen en methoden van een klasse te beperken tot de klasse zelf en de afgeleide (sub)klassen (ook wel kindklassen genoemd).
+In tegenstelling tot private kan een protected eigenschap of methode ook worden benaderd in afgeleide klassen. Dit betekent dat klassen die van de basis (super) klasse zijn afgeleid, toegang hebben tot de protected leden van de basis klasse.
+Maak een nieuw bestand aan in de “src” map: “protected.ts”.
+class Vehicle {
+   protected brand: string;
+   constructor(brand: string) {
+     this.brand = brand;
+   }
+   protected startEngine() {
+     console.log(`${this.brand} engine started.`);
+   }
+ }
+  class Car extends Vehicle {
+   private model: string;
+    constructor(brand: string, model: string) {
+     super(brand);//constructor van bovenliggende klasse (Vehicle) wordt aangeroepen en brand wordt opgestuurd
+     this.model = model;
+    }
+    public drive() {
+     this.startEngine(); // Toegang tot de 'startEngine'-methode via overerving
+     console.log(`Driving the ${this.brand} ${this.model}.`);
+   }
+ }
+  const myCar = new Car("Toyota", "Camry");
+ myCar.drive();
+//console.log(myCar.brand); // Fout: Eigenschap 'brand' is beschermd en niet toegankelijk van buiten de klasse
+________________
+
+
+Getter en Setter
+TypeScript ondersteunt getters en setters als een manier om toegang te krijgen tot (en waarden in te stellen voor) een objecteigenschap. Ze geven je meer controle over hoe eigenschappen worden geaccessed en gemodificeerd, wat handig kan zijn voor zaken als validatie en encapsulatie.
+Encapsulatie
+Dit verwijst naar het bundelen van gegevens (attributen) en de methoden die op die gegevens werken (functies of procedures) binnen één eenheid of object, en tegelijkertijd het beperken van de directe toegang tot een deel van die gegevens of methoden.
+Getters
+Een "getter" wordt gebruikt om de waarde van een (privé-)eigenschap op te halen. Het is een methode die als een eigenschap werkt.
+class Animal {
+        …
+   get animalName(): string {
+       return `De naam is: ${this.name}`;
+   }
+…
+}
+console.log(myAnimal.animalName);// method wordt opgeroepen als eigenschap, dus zonder ()
+Setters
+Een "setter" wordt gebruikt om een waarde toe te wijzen aan een (privé-)eigenschap. Net als een getter werkt een setter als een eigenschap, waardoor je validatie of extra logica kunt toevoegen wanneer een waarde wordt gezet.
+class Animal {
+        …
+   set animalNameInstellen(value: string) {
+       if (value.length > 0) {
+           this.name = value;
+       } else {
+           console.log("Voer een geldige naam in.");
+       }
+   }
+…}
+myAnimal.animalNameInstellen = "Cat";
+console.log(myAnimal.animalName);
+
+
+Oefening
+Voeg aan de Auto class een getter “beschrijving” toe die het merk en model geeft.
+Voeg ook een setter toe die het jaar instelt indien dit groter is dan 2000, anders moet een foutmelding getoond worden.
+Oplossing
+class Auto {
+… 
+get beschrijving(): string {
+       return `${this.merk} ${this.model}`;
+           }
+
+
+set jaar(value: number) {
+       if (value > 2000) {
+           this.bouwjaar = value;
+       } else {
+           console.log("Voer een geldig bouwjaar in.");
+       }
+           }
+…
+
+
+console.log(mijnAuto.beschrijving); // Outputs: Toyota Corolla
+mijnAuto.jaar = 1999; // Outputs: Voer een geldig bouwjaar in.
+________________
+
+
+Dot Notation en Bracket Notation
+Dot notation
+Dot-notatie is een meer leesbare en veelgebruikte manier om eigenschappen van een object te benaderen of in te stellen. Het wordt gebruikt wanneer de naam van de eigenschap een geldige JavaScript-identificatie is en bekend is op het moment van coderen. De syntax is eenvoudig en gemakkelijk te lezen.
+object.propertyName
+
+
+type PersonDot = {
+   name: string;
+   age: number;
+};
+
+
+const person: PersonDot = {
+   name: "Alice",
+   age: 30
+};
+
+
+console.log(person.name);  // Outputs: Alice
+Beperkingen
+* Kan niet worden gebruikt als de eigenschapsnaam spaties of speciale tekens bevat.
+* Kan niet worden gebruikt met eigenschapsnamen die zijn opgeslagen in variabelen.
+* Kan niet worden gebruikt als de eigenschapsnaam een gereserveerd woord is.
+________________
+Bracket notation
+Bracket-notatie is flexibeler en kan worden gebruikt in scenario's waar dot-notatie niet kan worden toegepast, bijvoorbeeld wanneer de eigenschapsnaam spaties, speciale tekens bevat, of wanneer de naam dynamisch is berekend (d.w.z., de exacte naam van de eigenschap is niet bekend op het moment van coderen).
+object["propertyName"]
+
+
+type PersonBracket = {
+   "first name": string;
+   age: number;
+   [key: string]: string | number;  // Dit zorgt ervoor dat je dynamisch eigenschappen kunt benaderen
+};
+
+
+const person2: PersonBracket = {
+   "first name": "Alice",
+   age: 30
+};
+
+
+console.log(person2["first name"]); // Outputs: Alice
+person2["newProperty"] = "test";
+console.log(person2["newProperty"]);         // Outputs: test
+Voordelen
+* Kan worden gebruikt met dynamische of berekende eigenschapsnamen.
+* Kan worden gebruikt als de eigenschapsnaam spaties of speciale tekens bevat.
+________________
+Oefening student
+Maak een Student klasse. De klasse heeft de volgende kenmerken:
+   * privé eigenschapen
+   *  _naam voor de naam van de student
+   * _studentNummer voor het studentnummer van de student
+   * _cijfers die een array van getallen bevat (de cijfers van de student)
+   * constructor die de naam en het studentnummer initialiseert (invult)
+   * getter genaamd getNaam die de naam ophaalt
+   * getter genaamd getGemiddelde die het gemiddelde van alle cijfers berekent met 2 cijfers na de komma en retourneert. Indien er nog geen cijfers zijn, returnt de getter 0
+   * setter genaamd setNaam voor de naam met eenvoudige validatie om te controleren of de naam niet leeg is. De validatie verwijdert spaties voor en achteraan de naam. Als de naam leeg is wordt een foutmelding gelogd.
+   * methode voegCijferToe waarmee je een cijfer aan de array van cijfers kunt toevoegen.
+Mogelijke uitvoer:
+Pieter's gemiddelde cijfer is: 7.17
+Anna's gemiddelde cijfer is: 7.5
+Sofie's gemiddelde cijfer is: 0
+De nieuwe naam van student1 is: Peter
+________________
+
+
+Oplossing
+class Student {
+   private _naam: string;
+   private _studentNummer: string;
+   private _cijfers: number[] = [];
+
+
+   constructor(naam: string, studentNummer: string) {
+       this._naam = naam;
+       this._studentNummer = studentNummer;
+   }
+
+
+   public get getNaam(): string {
+       return this._naam;
+   }
+
+
+   public get getGemiddelde(): number {
+       if (this._cijfers.length === 0) return 0;
+       const totaal = this._cijfers.reduce((acc, curr) => acc + curr, 0);
+       return Number((totaal / this._cijfers.length).toFixed(2));
+   }
+
+
+   public set setNaam(value: string) {
+       if (value.trim() !== '') {
+           this._naam = value;
+       } else {
+           console.log("De naam mag niet leeg zijn.");
+       }
+   }
+
+
+   public voegCijferToe(cijfer: number): void {
+       this._cijfers.push(cijfer);
+   }
+}
+
+
+________________
+
+
+// Instanties maken van de Student klasse
+const student1 = new Student("Pieter", "S12345");
+const student2 = new Student("Anna", "S54321");
+const student3 = new Student("Sofie", "S54383");
+
+
+// Cijfers toevoegen met behulp van de voegCijferToe methode
+student1.voegCijferToe(8);
+student1.voegCijferToe(7.5);
+student1.voegCijferToe(6);
+
+
+student2.voegCijferToe(7);
+student2.voegCijferToe(7.5);
+student2.voegCijferToe(8);
+
+
+// Het gemiddelde cijfer van de studenten opvragen
+console.log(`${student1.getNaam}'s gemiddelde cijfer is: ${student1.getGemiddelde}`);
+console.log(`${student2.getNaam}'s gemiddelde cijfer is: ${student2.getGemiddelde}`);
+console.log(`${student3.getNaam}'s gemiddelde cijfer is: ${student3.getGemiddelde}`);
+
+
+// De naam van student1 wijzigen en opnieuw afdrukken
+student1.setNaam = "Peter";
+console.log(`De nieuwe naam van student1 is: ${student1.getNaam}`);
+
+
+Opdracht
+Zie de opdracht op Moodle
+
+
+
+
+
+
+________________
+
+
+Singletons
+In objectgeoriënteerd programmeren is een singleton een klasse die slechts één enkele instantie van zichzelf toelaat en een mechanisme biedt om toegang te krijgen tot die enkele instantie. 
+Waarom een Singleton?
+Er zijn bepaalde situaties waarbij het zinvol is om slechts één instantie van een klasse te hebben, zoals:
+   * Toegang tot gedeelde bronnen zoals configuratie-informatie of een verbinding met een database.
+   * Loggen van informatie waarbij een gecentraliseerde logbron nodig is.
+   * Een 'global point of access' bieden zonder globale variabelen.
+Private Constructors
+In TypeScript kan de private modifier voor een constructor worden gebruikt om te voorkomen dat externe code nieuwe instanties van de klasse maakt. Dit is een belangrijk kenmerk bij het implementeren van een singleton.
+Static
+In TypeScript duidt het static sleutelwoord op klasse-niveau leden die toegankelijk zijn zonder dat een instantie van de klasse moet worden gemaakt. Ze bieden een manier om gegevens en methoden te organiseren die direct aan een klasse zijn gekoppeld, in tegenstelling tot aan een specifieke instantie van die klasse.
+________________
+Een Singleton in TypeScript
+Laten we eens kijken hoe we een singleton in TypeScript kunnen implementeren:
+class Singleton {
+   private static instance: Singleton;
+   //in eerste instantie zal deze undefined zijn
+
+
+   // Maak de constructor private zodat er geen nieuwe instanties van buitenaf gemaakt kunnen worden
+   private constructor() { }
+
+
+   // Methode om toegang te krijgen tot de singleton-instantie
+   public static getInstance(): Singleton {
+       if (!this.instance) {
+           this.instance = new Singleton();
+                // er wordt dus een nieuw object aangemaakt op basis van de Singleton class en dit object wordt bewaard in de instance property van de Singleton class
+       }
+       return this.instance;
+   }
+
+
+   public someMethod(): void {
+       console.log("Method in the Singleton class.");
+   }
+}
+
+
+// Gebruik van de Singleton
+const instance1 = Singleton.getInstance();
+instance1.someMethod();
+const instance2 = Singleton.getInstance();
+//test constructor
+//const instance3 = new Singleton();
+//Constructor of class 'Singleton' is private and only accessible within the class declaration.
+console.log(instance1 === instance2); // true
+Oefening
+Implementeer een Database klasse die het Singleton patroon volgt. Deze klasse moet:
+   1. Een private statische instantie van zichzelf hebben.
+   2. Een publieke statische methode hebben om toegang te krijgen tot deze instantie.
+   3. Een private constructor hebben om te voorkomen dat er van buitenaf nieuwe instanties van de klasse worden gemaakt.
+   4. Methodes hebben om data toe te voegen, te verwijderen en op te halen.
+class Database {
+   // Voeg de nodige statische en instantievariabelen toe
+   // Implementeer de private constructor
+   // Implementeer de statische getInstance methode
+
+
+   addData(data: string) {
+       // Voeg data toe
+   }
+
+
+   removeData(data: string) {
+       // Verwijder data
+   }
+
+
+   fetchData(): string[] {
+       // Haal alle data op
+       return [];
+   }
+}
+// Testen
+const db1 = Database.getInstance();
+const db2 = Database.getInstance();
+// Hier controleren we of beide "instanties" dezelfde zijn
+console.log(db1 === db2);  // Outputs: true
+db1.addData("Data 1");
+db1.addData("Data 2");
+console.log(db2.fetchData());  // Outputs: ["Data 1", "Data 2"]
+db2.removeData("Data 1");
+console.log(db1.fetchData());  // Outputs: ["Data 2"]
+Oplossing
+class Database {
+   // Singleton instantie
+   private static instance: Database;
+
+
+   // Een lijst om de data op te slaan
+   private data: string[] = [];
+
+
+   // Private constructor zodat er geen nieuwe instanties van buitenaf gemaakt kunnen worden
+   private constructor() { }
+
+
+   // Publieke statische methode om toegang te krijgen tot de Singleton instantie
+   public static getInstance(): Database {
+       if (!Database.instance) {
+           Database.instance = new Database();
+       }
+       return Database.instance;
+   }
+
+
+   addData(newData: string): void {
+       this.data.push(newData);
+   }
+
+
+   removeData(targetData: string): void {
+       this.data = this.data.filter(data => data !== targetData);
+   }
+
+
+   fetchData(): string[] {
+       return this.data;
+   }
+}
+
+
+// Testen
+const db1 = Database.getInstance();
+const db2 = Database.getInstance();
+
+
+// Hier controleren we of beide "instanties" eigenlijk dezelfde zijn
+console.log(db1 === db2);  // Outputs: true
+
+
+db1.addData("Data 1");
+db1.addData("Data 2");
+console.log(db2.fetchData());  // Outputs: ["Data 1", "Data 2"]
+
+
+db2.removeData("Data 1");
+console.log(db1.fetchData());  // Outputs: ["Data 2"]
+
+
+________________
+
+
+Interfaces
+Definiëren van interfaces
+In TypeScript is een interface een essentieel concept dat wordt gebruikt om de structuur van een object of klasse te definiëren. Het biedt een manier om te specificeren welke eigenschappen (properties) en methoden een object moet hebben, zonder dat je de werkelijke implementatie van die objecten opgeeft. 
+Interfaces worden voornamelijk gebruikt om consistentie en type veiligheid in je code te waarborgen, vooral bij het werken met complexe gegevensstructuren of wanneer je meerdere delen van je code wilt laten samenwerken.
+Voorbeelden van interface-definities voor verschillende use-cases
+Maak een nieuwe map aan “06-interfaces”. Maak in de src map een nieuw bestand aan: “interface.ts”.
+Een eenvoudige interface voor een gebruikersobject:
+interface User {
+   id: number;
+   username: string;
+   email: string;
+}
+ 
+Hier definieert de User interface dat een object van dit type drie eigenschappen moet hebben: id, username, en email, elk met een specifiek gegevenstype.
+
+
+Door de definitie kan VSC de tekst automatisch aanvullen.
+  
+
+
+
+Indien er een object wordt aangemaakt dat niet voldoet, zal de fout op verschillende manieren weergegeven worden:
+   * de naam van dit object wordt in de code onderstreept
+   * de naam van het bestand wordt in het tabblad bovenaan rood weergegeven, met een aanduiding van hoeveel fouten er zijn
+   * idem in de explorer
+   * onderaan, waar de “TERMINAL” staat, is er ook een tab “PROBLEMS”. Daar wordt ook het aantal problemen weergegeven en wordt uitgelegd wat er fout is.
+
+
+// Een object aanmaken dat niet aan de User-interface voldoet, de email ontbreekt
+const user1: User = {
+   id: 1,
+   username: "gebruikersnaam1",
+};
+
+
+// Een ander object aanmaken dat wel aan de User-interface voldoet
+const user2: User = {
+   id: 2,
+   username: "gebruikersnaam2",
+   email: "gebruiker2@email.com",
+};
+  
+
+
+
+Ook bv. een verkeerd type wordt aangegeven:
+username: 2,
+
+
+  
+
+Een interface voor een geometrische vorm
+interface Shape {
+   calculateArea(): number;
+   calculatePerimeter(): number;
+ }
+
+
+Deze interface, genaamd Shape, stelt dat elk object dat deze interface implementeert, twee methoden moet bevatten: calculateArea en calculatePerimeter, beide die een getal (number) retourneren.
+
+
+// Object dat voldoet aan de Shape-interface voor een rechthoek
+const rectangle: Shape = {
+   calculateArea() {
+       return 10 * 20; // Oppervlakte van de rechthoek
+   },
+   calculatePerimeter() {
+       return 2 * (10 + 20); // Omtrek van de rechthoek
+   },
+};
+
+
+// Object dat voldoet aan de Shape-interface voor een driehoek
+const triangle: Shape = {
+   calculateArea() {
+       return (1 / 2) * 5 * 8; // Oppervlakte van de driehoek
+   },
+   calculatePerimeter() {
+       return 5 + 8 + Math.sqrt(5 ** 2 + 8 ** 2); // Omtrek van de driehoek
+   },
+};
+
+
+console.log("Rechthoek oppervlakte:", rectangle.calculateArea());
+console.log("Rechthoek omtrek:", rectangle.calculatePerimeter());
+
+
+console.log("Driehoek oppervlakte:", triangle.calculateArea());
+console.log("Driehoek omtrek:", triangle.calculatePerimeter());
+// Object dat NIET voldoet aan de Shape-interface voor een vierkant
+const square: Shape = {
+   calculateArea() {
+       return (1 / 2) * 5 * 8; // Oppervlakte van de driehoek
+   }
+};
+
+
+
+
+  
+
+
+
+________________
+
+
+Oefening
+Maak een nieuw document aan: “interface-oefening.ts”. Pas de shape interface en de rectangle en square functies aan zodat ze parameters ontvangen en daarmee rekenen. (Je zal de namen van de interfaces moeten wijzigen, anders krijg je een fout tegen het aanmaken van reeds bestaande functies.)
+Oplossing
+interface Shape2 {
+   calculateArea2(width: number, height: number): number;
+   calculatePerimeter2(width: number, height: number): number;
+}
+const rectangle2: Shape2 = {
+   calculateArea2(width: number, height: number) {
+       return 10 * 20; 
+   },
+   calculatePerimeter2(width: number, height: number) {
+       return 2 * (10 + 20); 
+   },
+};
+const triangle2: Shape2 = {
+   calculateArea2(width: number, height: number) {
+       return (1 / 2) * width * height;
+   },
+   calculatePerimeter2(width: number, height: number) {
+       return width + height + Math.sqrt(width ** 2 + height ** 2);
+   },
+};
+console.log("Rechthoek oppervlakte:", rectangle2.calculateArea2(10, 20));
+console.log("Rechthoek omtrek:", rectangle2.calculatePerimeter2(10, 20));
+console.log("Driehoek oppervlakte:", triangle2.calculateArea2(5, 8));
+console.log("Driehoek omtrek:", triangle2.calculatePerimeter2(5, 8));
+
+
+Oefening PersonInterface
+Definieer een interface PersonInterface. Voeg drie eigenschappen toe aan de interface : naam, leeftijd, adres.
+Maak twee objecten aan die aan de PersonInterface-interface voldoen.
+Schrijf een TypeScript-functie die één argument accepteert, van het type PersonInterface.
+Binnen de functie, gebruik de argumentwaarden om informatie over de persoon af te drukken op een duidelijke en leesbare manier.
+Roep de functie op die je hebt geschreven om informatie over de gemaakte personen af te drukken in de console.
+Compileer en voer de TypeScript-code uit om te controleren of de informatie over de personen correct wordt afgedrukt.
+Oplossing
+interface PersonInterface {
+   firstName: string;
+   lastName: string;
+   age: number;
+}
+
+
+const personA: PersonInterface = {
+   firstName: "John",
+   lastName: "Doe",
+   age: 30,
+};
+
+
+const personB: PersonInterface = {
+   firstName: "Alice",
+   lastName: "Smith",
+   age: 25,
+};
+
+
+function printPersonInfo(person: PersonInterface) {
+   console.log(`Name: ${person.firstName} ${person.lastName}`);
+   console.log(`Age: ${person.age} years old`);
+}
+
+
+printPersonInfo(personA);
+printPersonInfo(personB);
+Interfaces en classes
+Het combineren van een TypeScript-klasse met een interface is een nuttige manier om de structuur en het gedrag van klassen te definiëren, en het helpt bij het bereiken van de naleving van hoe methoden en eigenschappen moeten gebruikt worden. 
+Voorbeeld Printable
+Definieer een interface. De interface bevat de specificatie van methoden en eigenschappen die een klasse moet implementeren.
+
+
+interface Printable {
+   print(): void;
+}
+
+
+Vervolgens maak je een klasse en gebruik je de implements-sleutelwoord om aan te geven dat de klasse de interface implementeert.
+
+
+class Doc implements Printable {
+   constructor(private content: string) { }
+
+
+   print() {
+       console.log(this.content);
+   }
+}
+Nu kun je objecten van de klasse maken en hun methoden gebruiken zoals je normaal zou doen.
+
+
+const myDocument = new Doc("Dit is een document om af te drukken.");
+myDocument.print();
+
+
+
+
+Voorbeeld Shape
+In dit voorbeeld wordt een interface Shape gedefinieerd die vastlegt hoe een class gebaseerd op deze interface moet gedefinieerd worden.
+
+
+interface Shape {
+   calculateArea(): number;
+   calculatePerimeter(): number;
+}
+class Circle implements Shape {
+   constructor(private radius: number) { }
+
+
+   calculateArea(): number {
+       return Math.PI * this.radius * this.radius;
+   }
+
+
+   calculatePerimeter(): number {
+       return 2 * Math.PI * this.radius;
+   }
+}
+
+
+const myCircle = new Circle(5); // Een cirkel met straal 5
+console.log("Oppervlakte:", myCircle.calculateArea()); // Oppervlakte: 78.53981633974483
+console.log("Omtrek:", myCircle.calculatePerimeter()); // Omtrek: 31.41592653589793
+
+
+
+
+Oefening class driehoek en rechthoek
+Breidt de vorige code uit met een class voor een driehoek en een class voor een rechthoek. Maak nieuwe variabelen gebaseerd op deze classes.
+
+
+Oplossing
+interface Shape {
+   calculateArea(): number;
+   calculatePerimeter(): number;
+}
+
+
+class Circle implements Shape {
+   constructor(private radius: number) { }
+
+
+   calculateArea(): number {
+       return Math.PI * this.radius * this.radius;
+   }
+
+
+   calculatePerimeter(): number {
+       return 2 * Math.PI * this.radius;
+   }
+}
+
+
+class Triangle implements Shape {
+   constructor(private base: number, private height: number, private side1: number, private side2: number, private side3: number) { }
+
+
+   calculateArea(): number {
+       return 0.5 * this.base * this.height;
+   }
+
+
+   calculatePerimeter(): number {
+       return this.side1 + this.side2 + this.side3;
+   }
+}
+class Rectangle implements Shape {
+   constructor(private width: number, private height: number) { }
+
+
+   calculateArea(): number {
+       return this.width * this.height;
+   }
+
+
+   calculatePerimeter(): number {
+       return 2 * (this.width + this.height);
+   }
+}
+
+
+// Gebruik de klassen
+const myCircle = new Circle(5); // Een cirkel met straal 5
+console.log("Cirkel - Oppervlakte:", myCircle.calculateArea()); // Cirkel - Oppervlakte: 78.53981633974483
+console.log("Cirkel - Omtrek:", myCircle.calculatePerimeter()); // Cirkel - Omtrek: 31.41592653589793
+
+
+const myTriangle = new Triangle(4, 5, 3, 4, 5); // Een driehoek met basis 4, hoogte 5 en zijden 3, 4 en 5
+console.log("Driehoek - Oppervlakte:", myTriangle.calculateArea()); // Driehoek - Oppervlakte: 10
+console.log("Driehoek - Omtrek:", myTriangle.calculatePerimeter()); // Driehoek - Omtrek: 12
+
+
+const myRectangle = new Rectangle(6, 8); // Een rechthoek met breedte 6 en hoogte 8
+console.log("Rechthoek - Oppervlakte:", myRectangle.calculateArea()); // Rechthoek - Oppervlakte: 48
+console.log("Rechthoek - Omtrek:", myRectangle.calculatePerimeter()); // Rechthoek - Omtrek: 28
+________________
+Oefening Interface voor E-commerceproducten
+Maak een TypeScript-interface voor E-commerceproducten. Je zult verschillende producten modelleren, zoals elektronica, kleding en boeken, en vervolgens enkele objecten van deze producten maken.
+Maak een nieuwe map aan “08-oef-E-commerceproducten” en zet een project op.
+   1. Definieer de TypeScript-interface:
+   * Definieer een TypeScript-interface genaamd Product.
+   * Voeg de volgende eigenschappen toe aan de interface:
+   * id (een uniek identificatienummer voor het product, een getal).
+   * name (de naam van het product, een string).
+   * price (de prijs van het product, een getal).
+   * description (een beschrijving van het product, een string).
+   * Voeg een optionele eigenschap discountPercentage toe (een getal tussen 0 en 100) om korting op het product aan te geven. Een optionele eigenschap kan je definiëren met een vraagteken achter de naam, bv. eigenschap1? : string
+   2. Maak klassen voor verschillende productcategorieën:
+   * Maak klassen voor verschillende productcategorieën zoals Electronics, Clothing, en Books.
+   * Elke klasse moet de Product-interface implementeren en de vereiste eigenschappen invullen.
+   * Voeg een constructor toe aan elke klasse om de eigenschappen in te stellen bij het maken van een productobject.
+   3. Maak productobjecten:
+   * Maak minstens twee objecten van elk producttype. Zie het resultaat van de log onderaan.
+   * Zorg ervoor dat elk product verschillende eigenschappen heeft, inclusief prijs en beschrijving.
+   * Zorg dat enkele producten een korting hebben. 
+   4. Toon productinformatie:
+   * Schrijf een functie genaamd displayProductInfo die een productobject accepteert als argument (van het type Product).
+   * Binnen de functie, druk informatie af over het product, inclusief naam, prijs, beschrijving en eventuele korting. Als er een korting is, moet de nieuwe prijs ook afgedrukt worden.
+   5. Roep de functie op:
+   * Roep de displayProductInfo-functie op voor elk gemaakt product om de informatie ervan af te drukken.
+Resultaat van de log:
+Product: Smartphone
+Price: $699.99
+Description: Latest smartphone with high-resolution camera
+Discounted Price: $629.99
+--------------
+Product: Laptop
+Price: $1099.99
+Description: Powerful laptop for work and gaming
+--------------
+Product: T-shirt
+Price: $19.99
+Description: Comfortable cotton T-shirt
+--------------
+Product: Jeans
+Price: $49.99
+Description: Classic denim jeans
+Discounted Price: $39.99
+--------------
+Product: JavaScript Basics
+Price: $29.99
+Description: Introduction to JavaScript programming
+Discounted Price: $25.49
+--------------
+Product: The Great Gatsby
+Price: $9.99
+Description: Classic novel by F. Scott Fitzgerald
+--------------
+________________
+Oplossing
+// Definieer de 'Product'-interface
+interface Product {
+   id: number;
+   name: string;
+   price: number;
+   description: string;
+   discountPercentage?: number; // Optionele korting
+}
+
+
+// Maak klassen voor verschillende productcategorieën
+class Electronics implements Product {
+   constructor(
+       public id: number,
+       public name: string,
+       public price: number,
+       public description: string,
+       public discountPercentage?: number
+   ) { }
+}
+
+
+class Clothing implements Product {
+   constructor(
+       public id: number,
+       public name: string,
+       public price: number,
+       public description: string,
+       public discountPercentage?: number
+   ) { }
+}
+
+
+class Books implements Product {
+   constructor(
+       public id: number,
+       public name: string,
+       public price: number,
+       public description: string,
+       public discountPercentage?: number
+   ) { }
+}
+
+
+// Maak productobjecten
+const electronics1 = new Electronics(1, "Smartphone", 699.99, "Latest smartphone with high-resolution camera", 10); // 10% korting
+const electronics2 = new Electronics(2, "Laptop", 1099.99, "Powerful laptop for work and gaming");
+
+
+const clothing1 = new Clothing(3, "T-shirt", 19.99, "Comfortable cotton T-shirt");
+const clothing2 = new Clothing(4, "Jeans", 49.99, "Classic denim jeans", 20); // 20% korting
+
+
+const book1 = new Books(5, "JavaScript Basics", 29.99, "Introduction to JavaScript programming", 15); // 15% korting
+const book2 = new Books(6, "The Great Gatsby", 9.99, "Classic novel by F. Scott Fitzgerald");
+
+
+
+
+// Schrijf de 'displayProductInfo'-functie
+function displayProductInfo(product: Product) {
+   console.log(`Product: ${product.name}`);
+   console.log(`Price: $${product.price}`);
+   console.log(`Description: ${product.description}`);
+   if (product.discountPercentage !== undefined) {
+       const discountedPrice = product.price * (1 - product.discountPercentage / 100);
+       console.log(`Discounted Price: $${discountedPrice.toFixed(2)}`);
+   }
+   console.log("--------------");
+}
+
+
+________________
+
+
+// Roep de functie op om productinformatie af te drukken
+displayProductInfo(electronics1);
+displayProductInfo(electronics2);
+displayProductInfo(clothing1);
+displayProductInfo(clothing2);
+displayProductInfo(book1);
+displayProductInfo(book2);
+Opdracht gerechten bestellen
+
+
+________________
+
+
+Type Aliases
+Type aliases bieden een krachtige manier om complexe type-definities te creëren en te beheren. Een type alias is een naam die aan een bepaald type wordt gegeven. Het helpt bij het verbeteren van de leesbaarheid en herbruikbaarheid van code door complexe types eenvoudig te benoemen. 
+Introductie van Type Aliases
+Stel dat je een complexe gebruikersinformatie structuur moet definiëren. Met informatie zoals naam, leeftijd, e-mailadres, adres en nog veel meer. Zonder type aliases zou de definitie van zo'n structuur er ongeveer zo uitzien:
+const user: {
+   name: string;
+   age: number;
+   email: string;
+   address: {
+       street: string;
+       city: string;
+       postalCode: string;
+   };
+   // ...en meer velden
+} = {
+   name: "John Doe",
+   age: 30,
+   email: "john@example.com",
+   address: {
+       street: "123 Main St",
+       city: "Anytown",
+       postalCode: "12345"
+   },
+   // ...en meer gegevens
+};
+Dit kan al snel onoverzichtelijk worden en de code moeilijk te lezen maken.
+Gebruik van Type Aliases
+Hier komt het gebruik van een type alias van pas. Een type alias maakt het mogelijk om dit complexe type een duidelijke en herkenbare naam te geven:
+type User = {
+   name: string;
+   age: number;
+   email: string;
+   address: {
+       street: string;
+       city: string;
+       postalCode: string;
+   };
+   // ...en meer velden
+};
+const user: User = {
+   name: "John Doe",
+   age: 30,
+   email: "john@example.com",
+   address: {
+       street: "123 Main St",
+       city: "Anytown",
+       postalCode: "12345"
+   },
+   // ...en meer gegevens
+};
+
+
+Met deze eenvoudige type alias (User) wordt de code meteen veel leesbaarder. Als je ergens anders in je code dezelfde gebruikersinformatiestructuur moet gebruiken, hoef je alleen maar User te gebruiken in plaats van de hele structuur opnieuw te definiëren.
+________________
+Oefening: Product Type Alias
+Definieer een informatiestructuur voor een product: naam, prijs en beschrijving. Maak een type alias genaamd Product voor deze structuur en gebruik dit in een functie die een lijst (array) met producten doorloopt en ze op de console weergeeft.
+Oplossing
+// Definieer het type alias Product
+type Product = {
+   name: string;
+   price: number;
+   description: string;
+};
+// Voorbeeldgegevens van producten
+const products: Product[] = [
+   {
+       name: "Product A",
+       price: 19.99,
+       description: "Dit is product A.",
+   },
+   {
+       name: "Product B",
+       price: 29.99,
+       description: "Dit is product B.",
+   },
+];
+// Functie om producten op de console weer te geven
+function displayProducts(products: Product[]) {
+   products.forEach((product) => {
+       console.log(`Naam: ${product.name}`);
+       console.log(`Prijs: ${product.price}`);
+       console.log(`Beschrijving: ${product.description}`);
+       console.log("----------------------");
+   });
+}
+
+
+// Roep de functie aan met de lijst van producten
+displayProducts(products);
+
+
+Verschil tussen een interface en een type alias
+Het verschil tussen een interface en een type alias in TypeScript heeft te maken met hun gebruik, gedrag en beperkingen. Hoewel ze vergelijkbare functies hebben, zijn er enkele subtiele verschillen die hun toepassing beïnvloeden.
+Interfaces
+   * Doel: Interfaces in TypeScript worden voornamelijk gebruikt om de vorm (structuur) van een object te definiëren. Ze beschrijven welke eigenschappen (properties) en methoden een object van dat type moet hebben.
+   * Uitbreidbaarheid: Interfaces zijn uitbreidbaar en samenvoegbaar. Dat betekent dat je meerdere interfaces kunt combineren in één interface en dat je nieuwe eigenschappen en methoden kunt toevoegen aan een bestaande interface door deze opnieuw te declareren. Dit is handig voor het implementeren van het patroon van 'mixin'-interfaces.
+Voorbeeld van een interface:
+interface Person {
+   name: string;
+   age: number;
+}
+
+
+const person: Person = {
+   name: "John Doe",
+   age: 30,
+};
+
+
+________________
+Type Aliases
+   * Doel: Type aliases worden gebruikt om complexe datatypes te creëren. Ze kunnen worden toegepast op elk datatype, inclusief objecten, functies, primitieve typen en combinaties daarvan. Type aliases geven een duidelijke naam aan een specifiek type.
+   * Compatibiliteit: Type aliases zijn compatibel met andere type operators zoals union (|) en intersection (&). Hiermee kun je nieuwe complexe types maken door bestaande types te combineren.
+Voorbeeld van een type alias:
+type Point = {
+   x: number;
+   y: number;
+};
+
+
+const point: Point = {
+   x: 1,
+   y: 2,
+};
+
+
+
+
+
+
+
+
+________________
+Wanneer gebruik je een Interface?
+Het definiëren van de vorm van objecten: Gebruik interfaces wanneer je de structuur van objecten wilt definiëren. Bijvoorbeeld, als je een 'User'-object wilt beschrijven met naam, leeftijd en e-mail, zou je een interface kunnen gebruiken.
+
+
+interface myUser {
+   name: string;
+   age: number;
+   email: string;
+}
+
+
+Implementatie van contracten: Als je wilt dat klassen of objecten bepaalde eigenschappen of methoden implementeren, zoals in het geval van een implementatie van een interface.
+interface Shape {
+   area(): number;
+}
+
+
+class Circle implements Shape {
+   // Voeg een 'radius' eigenschap toe
+   private radius: number;
+
+
+   // Constructor om de 'radius' in te stellen
+   constructor(radius: number) {
+       this.radius = radius;
+   }
+
+
+   // Implementeer de 'area' methode
+   area(): number {
+       return Math.PI * this.radius * this.radius;
+   }
+}
+
+
+// Voorbeeldgebruik
+const circle = new Circle(5);
+console.log(circle.area()); // Geeft de oppervlakte van de cirkel met straal 5
+Wanneer gebruik je een Type Alias?
+Het definiëren van complexe datatypes: Gebruik type aliases wanneer je complexe datatypes wilt definiëren die niet alleen objecten betreffen. B.v., als je een type wilt definiëren voor een functie met bepaalde parameters en een retourtype.
+type AddFunction = (a: number, b: number) => number;
+
+
+Samenvoegen van bestaande types: Gebruik type aliases om bestaande types te combineren of om nieuwe types te creëren op basis van bestaande types met behulp van union- of intersection-types.
+Oefening: Boekenlijst
+We zullen zowel een interface als een type alias gebruiken.
+   1. Maak een interface Book die de eigenschappen van een boek definieert:
+   * title (titel van het boek, een tekenreeks)
+   * author (auteur van het boek, een tekenreeks)
+   * publishedYear (jaar van publicatie, een getal)
+   * ISBN (ISBN-nummer van het boek, een tekenreeks)
+   2. Maak een type alias BookList voor het definiëren van een lijst met boeken. Dit type moet een array van objecten zijn die voldoen aan de Book-interface. Dit stel je in m.b.v.: Book[];
+   3. Implementeer een functie findBookByAuthor die een lijst met boeken en de naam van een auteur accepteert en het eerste boek in de lijst retourneert dat door die auteur is geschreven. Als er geen boek van die auteur is, moet de functie null retourneren. In de functie definitie moet je aangeven dat de return een book of null is : Book | null. Gebruik .find()
+   4. Implementeer een functie filterBooksByYear die een lijst met boeken en een jaar accepteert en een nieuwe lijst van boeken retourneert waarvan het publicatiejaar overeenkomt met het opgegeven jaar. Gebruik .filter()
+   5. Dit zijn de boeken: 
+"The Catcher in the Rye", "J.D. Salinger", 1951, "978-0-316-76948-0"
+"To Kill a Mockingbird", "Harper Lee", 1960, "978-0-06-112008-4" 
+"1984", "George Orwell", 1949, "978-0-452-28423-4"
+Oplossing 
+// Definieer de interface voor een boek 
+interface Book {
+   title: string;
+   author: string;
+   publishedYear: number;
+   ISBN: string;
+}
+
+
+// Definieer een type alias voor een lijst met boeken
+type BookList = Book[];
+
+
+// Implementeer de functie om een boek van een specifieke auteur te vinden
+function findBookByAuthor(books: BookList, authorName: string): Book | null {
+   return books.find((book) => book.author === authorName) || null;
+}
+// Implementeer de functie om boeken te filteren op publicatiejaar
+function filterBooksByYear(books: BookList, year: number): BookList {
+   return books.filter((book) => book.publishedYear === year);
+}
+
+
+________________
+
+
+// Voorbeeldgebruik
+
+
+const books: BookList = [
+   {
+       title: "The Catcher in the Rye",
+       author: "J.D. Salinger",
+       publishedYear: 1951,
+       ISBN: "978-0-316-76948-0",
+   },
+   {
+       title: "To Kill a Mockingbird",
+       author: "Harper Lee",
+       publishedYear: 1960,
+       ISBN: "978-0-06-112008-4",
+   },
+   {
+       title: "1984",
+       author: "George Orwell",
+       publishedYear: 1949,
+       ISBN: "978-0-452-28423-4",
+   },
+];
+const bookByAuthor = findBookByAuthor(books, "Harper Lee");
+console.log("Book by Harper Lee:", bookByAuthor);
+const booksPublishedIn1960 = filterBooksByYear(books, 1960);
+console.log("Books published in 1960:", booksPublishedIn1960);
+________________
+Oefening Filmverzameling met beoordelingen
+We gaan een TypeScript-model maken voor een filmverzameling met beoordelingen. We zullen zowel een interface als een type alias gebruiken om de films en hun eigenschappen te definiëren, en ook beoordelingen aan de films toevoegen.
+      1. Maak een interface Movie die de eigenschappen van een film definieert:
+      * title (titel van de film, een tekenreeks)
+      * director (regisseur van de film, een tekenreeks)
+      * releaseYear (jaar van release, een getal)
+      * genre (genre van de film, een tekenreeks)
+      * duration (duur van de film in minuten, een getal)
+      2. Maak een type alias MovieCollection voor het definiëren van een verzameling films. Dit type moet een array zijn van objecten die voldoen aan de Movie-interface.
+      3. Maak een interface Review die de eigenschappen van een beoordeling definieert:
+      * rating (beoordeling van de film op een schaal van 1 tot 5, een getal)
+      * comment (optionele opmerking bij de beoordeling, een tekenreeks of undefined)
+      4. Breid de Movie-interface uit met een eigenschap reviews die een array van Review-objecten bevat.
+      5. Implementeer een functie averageRatingForMovie die een film en zijn beoordelingen accepteert en het gemiddelde van alle beoordelingen berekent.
+      6. Implementeer een functie topRatedMovies die een verzameling films accepteert en een nieuwe verzameling retourneert met de best beoordeelde films (bijvoorbeeld de films met een gemiddelde beoordeling hoger dan 4).
+      7. Voeg volgende films met hun reviews toe:
+"Inception","Christopher Nolan", 2010,"Science Fiction", 148, reviews:4.5, "Een geweldige film!", 5,: "Fantastische plot!"
+The Shawshank Redemption", "Frank Darabont", 1994,"Drama", 142, reviews: 5,  "Meesterwerk!", 4.5
+Rio Lobo", "Howard Hawks", 1970, "Western", 114, reviews: 3.4, 3.5
+      8. De uitvoer van het programma is:
+Best beoordeelde films:
+Inception (2010) - Gemiddelde beoordeling: 4.75
+The Shawshank Redemption (1994) - Gemiddelde beoordeling: 4.75
+________________
+Oplossing
+// Definieer de interface voor een film
+interface Movie {
+   title: string;
+   director: string;
+   releaseYear: number;
+   genre: string;
+   duration: number;
+   reviews: Review[]; // Een film kan meerdere beoordelingen hebben
+}
+
+
+// Definieer een type alias voor een verzameling films
+type MovieCollection = Movie[];
+
+
+// Definieer de interface voor een beoordeling
+interface Review {
+   rating: number;
+   comment?: string; // Optionele opmerking bij de beoordeling
+}
+
+
+// Functie om het gemiddelde van beoordelingen voor een film te berekenen
+function averageRatingForMovie(movie: Movie): number {
+   if (movie.reviews.length === 0) {
+       return 0;
+   }
+
+
+   const totalRating = movie.reviews.reduce((sum, review) => sum + review.rating, 0);
+   return totalRating / movie.reviews.length;
+}
+
+
+// Functie om de best beoordeelde films te vinden (met een gemiddelde beoordeling hoger dan 4)
+function topRatedMovies(collection: MovieCollection): Movie[] {
+   return collection.filter((movie) => averageRatingForMovie(movie) > 4);
+}
+
+
+// Voorbeeldgebruik
+const movies: MovieCollection = [
+   {
+       title: "Inception",
+       director: "Christopher Nolan",
+       releaseYear: 2010,
+       genre: "Science Fiction",
+       duration: 148,
+       reviews: [
+           { rating: 4.5, comment: "Een geweldige film!" },
+           { rating: 5, comment: "Fantastische plot!" },
+       ],
+   },
+   {
+       title: "The Shawshank Redemption",
+       director: "Frank Darabont",
+       releaseYear: 1994,
+       genre: "Drama",
+       duration: 142,
+       reviews: [
+           { rating: 5, comment: "Meesterwerk!" },
+           { rating: 4.5 },
+       ],
+   },
+   {
+       title: "Rio Lobo",
+       director: "Howard Hawks",
+       releaseYear: 1970,
+       genre: "Western",
+       duration: 114,
+       reviews: [
+           { rating: 3.4 },
+           { rating: 3.5 },
+       ],
+   },
+   // Voeg meer films en beoordelingen toe
+];
+
+
+console.log("Best beoordeelde films:");
+const topMovies = topRatedMovies(movies);
+topMovies.forEach((movie) => {
+   console.log(`${movie.title} (${movie.releaseYear}) - Gemiddelde beoordeling: ${averageRatingForMovie(movie)}`);
+});
+________________
+
+
+Generics
+Wat zijn Generics?
+Generics zijn een krachtig kenmerk in TypeScript waarmee je code kunt schrijven die flexibel is met betrekking tot het type van gegevens dat het verwerkt. In plaats van specifieke typen te hardcoderen, kun je generieke typen en functies maken die werken met verschillende gegevenstypen. Dit verbetert de herbruikbaarheid van je code en vergroot de typeveiligheid.
+Waarom zijn Generics nuttig?
+Generics zijn nuttig omdat ze:
+         1. Herbruikbaarheid bevorderen: Je kunt generieke code schrijven die werkt met verschillende typen, waardoor je dezelfde functies en klassen kunt hergebruiken voor verschillende datatypen.
+         2. Typeveiligheid handhaven: Generics stellen TypeScript in staat om tijdens het ontwikkelproces statische typecontroles uit te voeren, wat de kans op fouten verkleint.
+         3. Flexibiliteit bieden: Je kunt generieke code schrijven die geschikt is voor meerdere scenario's zonder de precisie van het datatypen te verliezen.
+Voorbeelden van situaties waarin Generics van pas komen
+         * Lijsten / Arrays: Generics zijn handig bij het schrijven van generieke lijst- of arrayfuncties die met verschillende gegevenstypen kunnen werken.
+         * Containers / Gegevensstructuren: Generics kunnen worden gebruikt bij het maken van generieke gegevensstructuren zoals stapels, wachtrijen of bomen.
+         * Functies voor Gegevensverwerking: Je kunt generieke functies schrijven die gegevens verwerken zonder te weten welk type gegevens ze zullen ontvangen.
+________________
+
+
+Arrays
+function getFirstItem<T>(items: T[]): T {
+   return items[0];
+}
+
+
+let numbers = [1, 2, 3];
+console.log(getFirstItem(numbers)); // Outputs: 1
+
+
+let strings = ["apple", "banana", "cherry"];
+console.log(getFirstItem(strings)); // Outputs: apple
+
+
+De <T> in getFirstItem<T> geeft aan dat we een generic Type willen gebruiken en niet vast definiëren wat het type moet zijn. De T is een algemene overeenkomst, maar je kan ingeven wat je wil.
+De items die de functie ontvangt worden bekeken als de functie opgeroepen wordt, en dan wordt het type bepaald, maar het moet wel een array zijn. De returnwaarde is ook van hetzelfde generische type.
+We kunnen de functie nu oproepen met zowel een array van nummers als een array van strings.
+Voorbeeld: Generieke Functie om een Array om te keren
+Hier is een voorbeeld van een generieke functie die een array omkeert, ongeacht het type van de elementen:
+function reverseArray<T>(array: T[]): T[] {
+   return array.reverse();
+}
+
+
+// Gebruik van de generieke reverseArray-functie
+const numbersArray: number[] = [1, 2, 3, 4, 5];
+const reversedNumbers = reverseArray(numbersArray);
+console.log(reversedNumbers); // Resultaat: [5, 4, 3, 2, 1]
+const words: string[] = ["apple", "banana", "cherry"];
+const reversedWords = reverseArray(words);
+console.log(reversedWords); // Resultaat: ["cherry", "banana", "apple"]
+In deze functie wordt de typeparameter T gebruikt om aan te geven dat het een generieke functie is die kan werken met arrays van verschillende typen. Het type van het array wordt niet gespecificeerd bij de functie-definitie, maar wordt automatisch afgeleid op basis van het argument dat wordt doorgegeven.
+Creëren van Generieke Functies en Klassen voor Gegevensstructuren
+Generieke functies en klassen worden gedeclareerd door een typeparameter tussen haakjes <T> toe te voegen aan de functie- of klasseverklaring. 
+Stapel of Stack
+Dit is een gegevensstructuur van het LIFO type. Dat wil zeggen Last In First Out. We kunnen deze gegevens toevoegen aan de structuur en als er een gegeven verwijderd moet worden, is dat altijd het laatste toegevoegde gegeven. Denk aan een stapel borden: je kunt alleen het bovenste bord verwijderen (pop) of een nieuw bord bovenop plaatsen (push). 
+
+
+Bewerkingen:
+         * Push: Voeg een item toe aan de top van de stack.
+         * Pop: Verwijder en retourneer het bovenste item.
+         * Peek/Top: Bekijk het bovenste item zonder het te verwijderen.
+Toepassingen: Functieoproepen (call stack), geschiedenisfuncties zoals 'undo'
+Call stack
+Een call stack, ook bekend als de execution stack, is een fundamenteel concept in de informatica en programmering dat wordt gebruikt om bij te houden van de actieve subroutines (of functies) in een programma. Het is essentieel voor het begrijpen van de uitvoeringsvolgorde van code, vooral in talen zoals JavaScript en TypeScript.
+________________
+Hoe Werkt een Call Stack?
+Wanneer een script begint te lopen, wordt de eerste functie die wordt aangeroepen (bijvoorbeeld de main functie in veel programmeertalen) als eerste "frame" op de call stack geplaatst. Elk volgend functieaanroep leidt tot een nieuw frame bovenop de stack. Wanneer een functie is voltooid (dat wil zeggen, het bereikt het einde van de functie of raakt een return-statement), wordt het frame van die functie van de stack verwijderd (of "gepopt"), en de uitvoering gaat verder bij het punt van aanroep in de functie die direct onder het voltooide frame in de stack staat.
+Kenmerken van een Call Stack:
+         1. LIFO-structuur (Last In, First Out): De laatste functie die wordt aangeroepen, is de eerste die wordt voltooid en van de stack wordt verwijderd.
+         2. Synchroniciteit: In een single-threaded omgeving zoals JavaScript, wordt op elk moment slechts één taak (functieaanroep) uitgevoerd.
+         3. Foutopsporing: Wanneer er een fout optreedt, kan de call stack worden gebruikt om te traceren welke functieaanroepen hebben geleid tot de fout. Dit is de "stack trace" die vaak wordt weergegeven in ontwikkelaarstools en foutlogs.
+function derdeFunctie() {
+   throw new Error("Oeps!");
+}
+function tweedeFunctie() {
+   derdeFunctie();
+}
+function eersteFunctie() {
+   tweedeFunctie();
+}
+eersteFunctie();
+
+
+De call stack voor dit scenario zou er als volgt uitzien net voordat de fout wordt gegooid:
+         1. derdeFunctie (bovenaan de stack) 
+         2. tweedeFunctie
+         3. eersteFunctie
+         4. Global execution context (de basis van de stack)
+Zodra de fout wordt gegooid door derdeFunctie, kan de call stack worden gebruikt om te traceren dat derdeFunctie werd aangeroepen door tweedeFunctie, die op zijn beurt werd aangeroepen door eersteFunctie.
+Belang in Programmering:
+Een stack overflow is een programmeerfout die optreedt wanneer een programma te veel functieaanroepen maakt en de call stack, de datastructuur die deze aanroepen bijhoudt, zijn maximale grootte overschrijdt. Elke keer dat een functie wordt aangeroepen, wordt er informatie over die aanroep op de stack geplaatst (een "stack frame" genoemd), inclusief waar de functie werd aangeroepen en de variabelen die in die functie worden gebruikt. Wanneer er te veel functieaanroepen zijn (vaak als gevolg van diepe of oneindige recursie), raakt de ruimte op de stack op, wat resulteert in een stack overflow fout.
+Hoe treedt een Stack Overflow op?
+De meest voorkomende oorzaak van een stack overflow is een functie die zichzelf rechtstreeks of onrechtstreeks blijft aanroepen zonder een eindconditie (basisgeval) die de recursie stopt. Dit staat bekend als oneindige recursie. 
+function recurseEindeloos() {
+   recurseEindeloos(); // Functie roept zichzelf aan zonder eindconditie
+}
+recurseEindeloos();
+Browser Verschillen
+In browsers hangt de maximale stackgrootte af van de JavaScript-engine:
+         * Google Chrome (V8 engine): De limiet varieert aanzienlijk tussen verschillende versies en platforms, maar ligt vaak rond de 10.000 tot meer dan 20.000 frames.
+         * Mozilla Firefox (SpiderMonkey engine): Heeft over het algemeen een kleinere limiet dan Chrome, vaak rond de 5.000 frames.
+         * Safari (JavaScriptCore): De limiet lijkt op die van Chrome, maar kan variëren afhankelijk van de specifieke versie en configuratie.
+________________
+Node.js
+In Node.js, dat de V8 JavaScript-engine van Google gebruikt, kan de standaard stackgrootte ook rond de 10.000 liggen, maar dit kan worden aangepast met de --stack-size vlag bij het starten van een Node.js-proces.
+________________
+
+
+Bewerkingen
+class Stack<T> {
+   private items: T[] = [];
+   push(element: T): void {
+       this.items.push(element);
+   }
+   pop(): T | null {
+       return this.items.pop() || null;
+   }
+   peek(): T | null {
+       return this.items[this.items.length - 1] || null;
+   }
+   isEmpty(): boolean {
+       return this.items.length === 0;
+   }
+}
+
+
+const numberStack = new Stack<number>();
+console.log(numberStack.isEmpty());
+numberStack.push(10);
+console.log(numberStack.peek());  // Outputs: 10
+
+
+const stringStack = new Stack<string>();
+stringStack.push("apple");
+stringStack.push("banana");
+console.log(stringStack.pop()); // Resultaat: "banana"
+console.log(stringStack.isEmpty());
+In dit voorbeeld hebben we de generieke klasse Stack gemaakt met een typeparameter T. Hierdoor kan dezelfde klasse worden gebruikt voor verschillende typen, zoals number en string. De typeparameter wordt gespecificeerd bij het maken van een instantie van de klasse.
+Wachtrij of Queue
+volgt het First In, First Out (FIFO) principe. Denk aan een rij mensen die wachten op hun beurt bij een loket: de persoon die als eerste komt, wordt als eerste geholpen, en nieuwe mensen sluiten achteraan aan.
+Bewerkingen:
+         * Enqueue: Voeg een item toe aan het einde van de wachtrij.
+         * Dequeue: Verwijder en retourneer het item aan het begin van de wachtrij.
+         * Front/Peek: Bekijk het voorste item zonder het te verwijderen.
+Toepassingen: Orderverwerking, taakplanning in besturingssystemen, gegevensoverdracht, enz.
+Varianten: Er zijn ook prioriteitswachtrijen waar items worden verwerkt op basis van prioriteit in plaats van volgorde van binnenkomst.
+class Queue<T> {
+   private items: T[] = [];
+
+
+   enqueue(element: T): void {
+       this.items.push(element);
+   }
+
+
+   dequeue(): T | null {
+       return this.items.shift() || null;
+   }
+
+
+   front(): T | null {
+       return this.items[0] || null;
+   }
+
+
+   isEmpty(): boolean {
+       return this.items.length === 0;
+   }
+}
+
+
+const stringQueue = new Queue<string>();
+stringQueue.enqueue("apple");
+console.log(stringQueue.front());  // Outputs: apple
+________________
+
+
+Bomen of Trees
+Dit is een hiërarchische datastructuur die bestaat uit knooppunten en verbindingen (ook wel edges genoemd). Elk knooppunt heeft een waarde en kan verwijzingen hebben naar andere knooppunten, die zijn kinderen worden genoemd.
+Basiscomponenten:
+         * Knooppunt (Node): Een element in de boom.
+         * Edge: Verbinding tussen twee knooppunten.
+         * Root: Het bovenste knooppunt in een boom.
+         * Parent en Child: Een knooppunt dat een verwijzing heeft naar een ander knooppunt is de ouder van dat knooppunt. Het verwezen knooppunt is het kind.
+Types:
+         * Binaire boom: Elke knoop heeft maximaal twee kinderen (vaak aangeduid als "left" en "right").
+         * Binaire zoekboom (Binary Search Tree, BST): Een binaire boom waarvoor elk knooppunt voldoet aan de eigenschap dat de waarden in het linkerkind (en zijn subbomen) kleiner zijn dan de huidige knoop en de waarden in het rechterkind (en zijn subbomen) groter zijn.
+         * Er zijn ook complexere bomen zoals AVL-bomen, B-bomen, enz.
+Toepassingen: Hiërarchische dataopslag, databases, bestandssystemen, routeplanning, enz.
+class BinaryTreeNode<T> {
+   value: T;
+   left: BinaryTreeNode<T> | null = null;
+   right: BinaryTreeNode<T> | null = null;
+
+
+   constructor(value: T) {
+       this.value = value;
+   }
+}
+
+
+const rootNode = new BinaryTreeNode<number>(10);
+const leftChild1 = new BinaryTreeNode<number>(5);
+const rightChild1 = new BinaryTreeNode<number>(15);
+
+
+rootNode.left = leftChild1;
+rootNode.right = rightChild1;
+
+
+console.log(rootNode)
+
+
+const leftChild2 = new BinaryTreeNode<number>(33);
+const rightChild2 = new BinaryTreeNode<number>(8);
+
+
+leftChild1.left = leftChild2;
+leftChild1.right = rightChild2;
+
+
+console.log(rootNode)
+________________
+Oefening kaarten
+Creëer een generieke class CardCollection<T> die een verzameling kaarten van type T kan bevatten en beheren. Deze kaarten kunnen van alles zijn: speelkaarten, Pokemonkaarten, Magic kaarten, enz.
+         1. De class moet een methode addCard hebben om een kaart aan de collectie toe te voegen.
+         2. De class moet een methode drawCard hebben die willekeurig een kaart uit de collectie haalt en deze retourneert. Na het trekken moet de kaart uit de collectie worden verwijderd.
+         3. De class moet een methode countCards hebben die het aantal kaarten in de collectie retourneert.
+         4. De class moet een methode findCard hebben die een specifieke kaart zoekt op basis van een zoekfunctie en deze retourneert zonder deze uit de collectie te verwijderen.
+Extra uitdaging: Implementeer een methode shuffle die de volgorde van de kaarten in de collectie willekeurig verandert.
+Tips:
+         1. Gebruik een array om de kaarten in de collectie op te slaan.
+         2. Voor het willekeurig trekken van een kaart, kun je de Math.random() functie gebruiken.
+Voorbeeld van gebruik
+let playingCards = new CardCollection<string>();
+playingCards.addCard("Harten Aas");
+playingCards.addCard("Klaveren 10");
+console.log(playingCards.countCards()); // Outputs: 2
+console.log(playingCards.drawCard());   // Outputs: (willekeurig) "Harten Aas" of "Klaveren 10"
+console.log(playingCards.countCards()); // Outputs: 1
+________________
+
+
+Oplossing
+class CardCollection<T> {
+   private cards: T[] = [];
+
+
+   // Methode om een kaart toe te voegen
+   addCard(card: T): void {
+       this.cards.push(card);
+   }
+
+
+   // Methode om willekeurig een kaart te trekken
+   drawCard(): T | null {
+       if (this.cards.length === 0) return null;
+       const randomIndex = Math.floor(Math.random() * this.cards.length);
+       const [drawnCard] = this.cards.splice(randomIndex, 1);
+       return drawnCard;
+   }
+
+
+   // Methode om het aantal kaarten te retourneren
+   countCards(): number {
+       return this.cards.length;
+   }
+}
+// Voorbeeld van gebruik
+let playingCards = new CardCollection<string>();
+playingCards.addCard("Harten Aas");
+playingCards.addCard("Klaveren 10");
+
+
+console.log(playingCards.countCards()); // Outputs: 2
+
+
+console.log(playingCards.drawCard());   // Outputs: (willekeurig) "Harten Aas" of "Klaveren 10"
+console.log(playingCards.countCards()); // Outputs: 1
+Opdracht: Implementatie van een Generieke Prioriteitswachtrij

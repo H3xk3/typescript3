@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>setTimeout() voorbeeld</title>
+</head>
+<body>
+    <p>Klik op de knop en na 3 seconden zie je een alert.</p>
+    <button id="myButton">Klik hier</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myButton').on('click', function() {
+                setTimeout(function() {
+                    alert('Hallo wereld!');
+                }, 3000); // 3000 milliseconden (3 seconden) vertraging
+            });
+        });
+    </script>
+</body>
+</html>

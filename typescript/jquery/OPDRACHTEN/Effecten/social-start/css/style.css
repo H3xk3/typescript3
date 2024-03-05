@@ -1,0 +1,35 @@
+body{
+    width: 90%;
+}
+.html{
+    position: relative;
+    overflow: hidden;
+}
+#social{
+    position: fixed;
+    right: -137px;
+    top: 0;
+    width: 174px;
+}
+#close{
+    float: left;
+    width: 37px;
+    cursor: pointer;
+    text-align: center;
+}
+#social #buttons{
+    width: 100px;
+    float: left;
+}
+#buttons{
+    float: left;
+}
+.share_wrap, .close_wrap{
+    width: 37px;
+    height: 300px;
+    float: left;
+}
+#share {
+    width: 37px; 
+    cursor: pointer;
+}
